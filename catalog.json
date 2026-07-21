@@ -2,26 +2,99 @@
   "series": [
     {
       "id": 1,
-      "title": "Série Exemplo 1",
-      "rating": "16+",
-      "desc": "Esta é uma descrição de demonstração para a Série Exemplo 1.",
-      "thumb": "https://via.placeholder.com/300x169/181818/ffffff?text=Serie+1",
+      "title": "The Amazing Digital Circus",
+      "desc": "The Amazing Digital Circus is a psychological dark comedy...",
+      "rating": "12+",
+      "thumb": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2va3lO1isTlm0lahDByuisBVEEoLa_Y7IccD8rYTzxntMlnbGckc6Np6W&s=10",
       "episodes": [
         {
-          "title": "Episódio 1 - O Início",
-          "desc": "Primeiro episódio da série.",
-          "thumb": "https://via.placeholder.com/130x75/333333/ffffff?text=EP1",
+          "id": "tdac_ep1",
+          "title": "THE AMAZING DIGITAL CIRCUS: PILOT",
+          "desc": "Episódio Piloto",
+          "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg",
           "audios": [
-            { "lang": "pt-br", "label": "Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-            { "lang": "original", "label": "Legendado", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HRdbWsE8oDM" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" }
           ]
         },
         {
-          "title": "Episódio 2 - A Jornada",
-          "desc": "Segundo episódio da série.",
-          "thumb": "https://via.placeholder.com/130x75/333333/ffffff?text=EP2",
+          "id": "tdac_ep2",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 2: Candy Carrier Chaos!",
+          "desc": "The gang are BACK for a WAaAaAaACKY candy filled adventure!",
+          "thumb": "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg",
           "audios": [
-            { "lang": "pt-br", "label": "Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=CS_CgGRHYqM" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=4ofJpOEXrZs" }
+          ]
+        },
+        {
+          "id": "tdac_ep3",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 3: The Mystery Of Mildenhall Manor",
+          "desc": "The gang are back together to go on their next SPOOKY adventure.",
+          "thumb": "https://i.ytimg.com/vi/bKjfw77cxeQ/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QbXW0TLs5yk" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=bKjfw77cxeQ" }
+          ]
+        },
+        {
+          "id": "tdac_ep4",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 4: Fast Food Masquerade",
+          "desc": "Pomni and friends spend an honest day’s hard work at popular fast food chain; Spudsy’s!",
+          "thumb": "https://i.ytimg.com/vi/Q9KWcWKo2T8/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=DwVfY-NK7gc" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=Q9KWcWKo2T8" }
+          ]
+        },
+        {
+          "id": "tdac_ep5",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 5: Untitled",
+          "desc": "We aren't actually sure what this episode is about.",
+          "thumb": "https://i.ytimg.com/vi/L4p2gN2CzsA/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=AKpMV5yW_vE" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=L4p2gN2CzsA" }
+          ]
+        },
+        {
+          "id": "tdac_ep6",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 6: They All Get Guns",
+          "desc": "In this episode: gun.",
+          "thumb": "https://i.ytimg.com/vi/mOvhHim78YA/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Te8MC9M9vIg" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mOvhHim78YA" }
+          ]
+        },
+        {
+          "id": "tdac_ep7",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 7: Beach Episode",
+          "desc": "Beach episode!!!!!!",
+          "thumb": "https://i.ytimg.com/vi/oaOG1xOk7XY/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Zj5gy-JavdY" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=oaOG1xOk7XY" }
+          ]
+        },
+        {
+          "id": "tdac_ep8",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 8: hjsakldfhl",
+          "desc": "OH...",
+          "thumb": "https://i.ytimg.com/vi/DMNlzf8PiEM/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=UwV87cSKGr8" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=DMNlzf8PiEM" }
+          ]
+        },
+        {
+          "id": "tdac_ep9",
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 9: Remember",
+          "desc": "The Amazing Digital Circus comes to an end.",
+          "thumb": "https://i.ytimg.com/vi/PVy-bcTsO8A/hq720.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=qmC8yRyqDkQ" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=PVy-bcTsO8A" }
           ]
         }
       ]
@@ -29,18 +102,19 @@
   ],
   "fandubs": [
     {
-      "id": 2,
-      "title": "Fandub Exemplo 1",
-      "rating": "Livre",
-      "desc": "Descrição da Fandub Exemplo.",
-      "thumb": "https://via.placeholder.com/300x169/181818/ffffff?text=Fandub+1",
+      "id": 101,
+      "title": "A Incrível Copa Digital",
+      "desc": "Série de Fan Dublagens da Incrível Copa Digital.",
+      "rating": "10+",
+      "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg",
       "episodes": [
         {
-          "title": "Episódio Único",
-          "desc": "Projeto especial de fandubgem.",
-          "thumb": "https://via.placeholder.com/130x75/333333/ffffff?text=Fandub+EP1",
+          "id": "copa_ep1",
+          "title": "A Incrível Copa Digital - EP 1: Bota o endrick!!",
+          "desc": "Episódio 1 da Fan Dublagem",
+          "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg",
           "audios": [
-            { "lang": "pt-br", "label": "Fandub PT-BR", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=xl6F1yMv40U" }
           ]
         }
       ]
