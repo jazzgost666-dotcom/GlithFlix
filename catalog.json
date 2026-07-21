@@ -19,10 +19,19 @@
         {
           "title": "THE AMAZING DIGITAL CIRCUS - Ep 2: Candy Carrier Chaos!",
           "desc": "The gang are BACK for a WAaAaAaACKY candy filled adventure! They also discover that their lives literally have no meaning. Woohoo! So waaccky!!!!!",
-          "thumb": "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBq20xg8HD6loLs5MMwrMTYcNcRrQ",
+          "thumb": "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg",
           "audios": [
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=CS_CgGRHYqM" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=4ofJpOEXrZs" }
+          ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 3: The Mystery Of Mildenhall Manor",
+          "desc": "The gang are back together to go on their next SPOOKY adventure. Kinger gets a shotgun! Zooble goes to therapy! Pomni goes to hell! So much fun awaits!!!!!",
+          "thumb": "https://i.ytimg.com/vi/bKjfw77cxeQ/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBtPdUeJyxQHo11M9se8NARwVfDLQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QbXW0TLs5yk" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=bKjfw77cxeQ" }
           ]
         }
       ]
