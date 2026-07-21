@@ -15,6 +15,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HRdbWsE8oDM" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w&list=PLj64d_IPPOhTdfVu9hkZ8d_S3R_StKBuI" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 2: Candy Carrier Chaos!",
+          "desc": "The gang are BACK for a WAaAaAaACKY candy filled adventure! They also discover that their lives literally have no meaning. Woohoo! So waaccky!!!!!",
+          "thumb": "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBq20xg8HD6loLs5MMwrMTYcNcRrQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=CS_CgGRHYqM" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=4ofJpOEXrZs" }
+          ]
         }
       ]
     }
