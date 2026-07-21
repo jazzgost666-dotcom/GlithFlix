@@ -155,6 +155,36 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=WOCa2wM6GdI" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=rk0HBqSqpgg" }
           ]
+        },
+        {
+          "id": "md_ep6",
+          "title": "MURDER DRONES - Episode 6: Dead End",
+          "desc": "Lots of monsters in this episode... WHY ARE THERE SO MANY MONSTERS?!",
+          "thumb": "https://i.ytimg.com/vi/U7i6fi3z9Nk/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCIRgSxGyhO-4dKiI0vnZQw3hVrng",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=G33a4HpRGs4" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=U7i6fi3z9Nk" }
+          ]
+        },
+        {
+          "id": "md_ep7",
+          "title": "MURDER DRONES - Episode 7: Mass Destruction",
+          "desc": "As Uzi and N are put to the ultimate test, the origins of things are finally revealed.",
+          "thumb": "https://i.ytimg.com/vi/EOqw86OGIB0/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLA9IzIFLuvsNetz5z8KAqv9rbDPbQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=J_wd1nZlKbw" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=EOqw86OGIB0" }
+          ]
+        },
+        {
+          "id": "md_ep8",
+          "title": "MURDER DRONES - Episode 8: Absolute End",
+          "desc": "In the series finale of Murder Drones, Uzi and N face off against Cyn in an epic battle that will change the universe forever.",
+          "thumb": "https://i.ytimg.com/vi/caR9ouipm8o/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLD1APlLlzdRtU_Z6A3N5Sjga_5GGQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=YBRP46-eeQs" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=caR9ouipm8o" }
+          ]
         }
       ]
     }
@@ -203,7 +233,7 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=sr_dwJYIyVM" }
           ]
         },
-         {
+        {
           "id": "copa_ep5",
           "title": "A Incrível Copa Digital! | Episódio Especial |",
           "desc": "Episódio Especial Final da Fan Dublagem de: GABII DNK",
