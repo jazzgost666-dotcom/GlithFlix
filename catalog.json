@@ -13,7 +13,7 @@
           "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg",
           "audios": [
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HRdbWsE8oDM" },
-            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" }
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w&list=PLj64d_IPPOhTdfVu9hkZ8d_S3R_StKBuI" }
           ]
         }
       ]
