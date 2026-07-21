@@ -1,5 +1,3 @@
-// catalog.js
-export const siteData = {
   "series": [
     {
       "id": 1,
