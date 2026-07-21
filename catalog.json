@@ -51,6 +51,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=AKpMV5yW_vE" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=L4p2gN2CzsA" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 6: They All Get Guns",
+          "desc": "In this episode: gun.",
+          "thumb": "https://i.ytimg.com/vi/mOvhHim78YA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLB8G5kIREKBi4uF4nM9CKzYJR790Q",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Te8MC9M9vIg" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mOvhHim78YA" }
+          ]
         }
       ]
     }
