@@ -78,6 +78,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=UwV87cSKGr8" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=DMNlzf8PiEM" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 9: Remember",
+          "desc": "The Amazing Digital Circus comes to an end.",
+          "thumb": "https://i.ytimg.com/vi/PVy-bcTsO8A/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAKWKGcfoO9pF2_jEcP5Enj46-4KA",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=qmC8yRyqDkQ" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=PVy-bcTsO8A" }
+          ]
         }
       ]
     }
