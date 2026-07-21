@@ -33,6 +33,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QbXW0TLs5yk" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=bKjfw77cxeQ" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 4: Fast Food Masquerade",
+          "desc": "Pomni and friends spend an honest day’s hard work at popular fast food chain; Spudsy’s! Keep an eye out though, Gangle is the manager and has a brand new mask… it’s like she’s a whole NEW person!",
+          "thumb": "https://i.ytimg.com/vi/Q9KWcWKo2T8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBqzcmSwOZXEvI6vZ_yhwXYIgE28Q",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=DwVfY-NK7gc" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=Q9KWcWKo2T8" }
+          ]
         }
       ]
     }
