@@ -323,6 +323,25 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 1.2rem 0; border-bottom: 1px solid #252525;
         }
+
+        .audio-buttons-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .btn-audio-option {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .btn-audio-option:hover {
+            background: var(--main-red);
+            border-color: var(--main-red);
+        }
     </style>
 </head>
 <body>
@@ -351,7 +370,7 @@
         </nav>
         <div class="nav-right">
             <button class="icon-btn" onclick="openModal('settings-modal')">
-                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0-.44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
             </button>
             <div id="user-display" style="font-size: 0.9rem; border-left: 1px solid #333; padding-left: 1rem; color: var(--gray-text); cursor:pointer;" onclick="exitProfile()">Sair</div>
         </div>
@@ -398,16 +417,6 @@
                     </div>
                 </div>
                 <div class="controls-right">
-                    <!-- Seleção de Áudio (Dublagem) -->
-                    <select id="audio-selector" class="select-picker" onchange="changeAudioTrack(this.value)">
-                        <option value="">Áudio: Padrão</option>
-                    </select>
-
-                    <!-- Seleção de Legendas -->
-                    <select id="caption-selector" class="select-picker" onchange="changeCaptionTrack(this.value)">
-                        <option value="off">Legenda: Desligada</option>
-                    </select>
-
                     <!-- Velocidade de Reprodução -->
                     <select id="speed-selector" class="select-picker" onchange="setSpeed(this.value)">
                         <option value="1" selected>1x</option>
@@ -518,12 +527,26 @@
             list.innerHTML = '';
 
             serie.episodes.forEach(ep => {
+                let audioBtnsHTML = '';
+                
+                // Suporte a múltiplas faixas de áudio no JSON
+                if (ep.audios && Array.isArray(ep.audios)) {
+                    audioBtnsHTML = '<div class="audio-buttons-container">';
+                    ep.audios.forEach(aud => {
+                        audioBtnsHTML += `<button class="btn-audio-option" onclick="event.stopPropagation(); closeModal('episodes-modal'); startPlayer('${aud.url}');">${aud.label}</button>`;
+                    });
+                    audioBtnsHTML += '</div>';
+                }
+
+                const clickAction = (!ep.audios) ? `closeModal('episodes-modal'); startPlayer('${ep.videoUrl}')` : '';
+
                 list.innerHTML += `
-                    <div class="ep-item" onclick="closeModal('episodes-modal'); startPlayer('${ep.videoUrl}')">
+                    <div class="ep-item" onclick="${clickAction}">
                         <img src="${ep.thumb}">
-                        <div>
+                        <div style="width:100%;">
                             <h4 style="margin-bottom:4px;">${ep.title}</h4>
                             <p style="font-size:0.85rem; color:var(--gray-text); line-height:1.3;">${ep.desc}</p>
+                            ${audioBtnsHTML}
                         </div>
                     </div>`;
             });
@@ -536,8 +559,6 @@
         const nativeVideo = document.getElementById('native-video');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
-        const captionSelector = document.getElementById('caption-selector');
-        const audioSelector = document.getElementById('audio-selector');
 
         function extractYouTubeID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -564,19 +585,15 @@
                             'disablekb': 1,
                             'modestbranding': 1,
                             'rel': 0,
-                            'cc_load_policy': 1 // Habilita o suporte de legendas
+                            'cc_load_policy': 0 // Legenda inicia DESLIGADA por padrão
                         },
                         events: {
                             'onReady': (e) => { 
                                 e.target.playVideo(); 
                                 startProgressTracker(); 
-                                loadYouTubeTrackOptions();
                             },
                             'onStateChange': (e) => { 
                                 updatePlayIcon(e.data === YT.PlayerState.PLAYING);
-                                if (e.data === YT.PlayerState.PLAYING) {
-                                    loadYouTubeTrackOptions();
-                                }
                             }
                         }
                     });
@@ -590,9 +607,6 @@
                 ytWrapper.style.display = 'none';
                 if(ytPlayer) ytPlayer.stopVideo();
 
-                captionSelector.innerHTML = '<option value="off">Legenda: Não disponível</option>';
-                audioSelector.innerHTML = '<option value="">Áudio: Padrão</option>';
-
                 nativeVideo.style.display = 'block';
                 nativeVideo.src = url;
                 nativeVideo.play();
@@ -602,46 +616,6 @@
                     const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
                     progress.style.width = `${pct}%`;
                 };
-            }
-        }
-
-        // Carrega as opções de legenda e áudio/dublagem oferecidas pelo vídeo do YouTube
-        function loadYouTubeTrackOptions() {
-            if (!ytPlayer) return;
-
-            // Carregar legendas disponíveis
-            ytPlayer.loadModule('captions');
-            setTimeout(() => {
-                const tracks = ytPlayer.getOption('captions', 'tracklist') || [];
-                captionSelector.innerHTML = '<option value="off">Legenda: Desligada</option>';
-                tracks.forEach(track => {
-                    captionSelector.innerHTML += `<option value="${track.languageCode}">Legenda: ${track.displayName || track.languageName}</option>`;
-                });
-
-                // Carregar faixas de áudio/dublagem (se disponível no canal do vídeo)
-                if (ytPlayer.getAvailableAudioTracks) {
-                    const audioTracks = ytPlayer.getAvailableAudioTracks() || [];
-                    audioSelector.innerHTML = '<option value="">Áudio: Padrão</option>';
-                    audioTracks.forEach(track => {
-                        audioSelector.innerHTML += `<option value="${track.id}">Áudio: ${track.displayName || track.languageName}</option>`;
-                    });
-                }
-            }, 1000);
-        }
-
-        function changeCaptionTrack(langCode) {
-            if (activeType === 'youtube' && ytPlayer) {
-                if (langCode === 'off') {
-                    ytPlayer.setOption('captions', 'track', {});
-                } else {
-                    ytPlayer.setOption('captions', 'track', { languageCode: langCode });
-                }
-            }
-        }
-
-        function changeAudioTrack(trackId) {
-            if (activeType === 'youtube' && ytPlayer && ytPlayer.setAudioTrack && trackId) {
-                ytPlayer.setAudioTrack(trackId);
             }
         }
 
