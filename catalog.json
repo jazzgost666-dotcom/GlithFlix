@@ -69,6 +69,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Zj5gy-JavdY" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=oaOG1xOk7XY" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 8: hjsakldfhl",
+          "desc": "OH...",
+          "thumb": "https://i.ytimg.com/vi/DMNlzf8PiEM/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBtJVMN9Mg4Xm-pKXWoCjW-VmRTOA",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=UwV87cSKGr8" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=DMNlzf8PiEM" }
+          ]
         }
       ]
     }
