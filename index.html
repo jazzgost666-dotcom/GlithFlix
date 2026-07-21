@@ -454,11 +454,18 @@
             <button class="close-modal" onclick="closeModal('settings-modal')">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
-            <h2>Configurações</h2>
+            <h2>Configurações do Sistema</h2>
             <br>
             <div class="toggle-box">
                 <span>Modo Escuro (Padrão)</span>
                 <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
+            </div>
+            <div class="toggle-box">
+                <span>Idioma / Dublagem Preferida</span>
+                <select id="pref-audio-lang" class="select-picker" onchange="setGlobalAudioPref(this.value)">
+                    <option value="pt-br">Português (PT-BR)</option>
+                    <option value="original">Original (Inglês/Nativo)</option>
+                </select>
             </div>
         </div>
     </div>
@@ -472,14 +479,26 @@
         let activeType = null;
         let progressInterval = null;
 
+        // Recupera preferencia global salva no navegador
+        let preferredAudioLang = localStorage.getItem('gf_pref_audio') || 'pt-br';
+
         async function fetchCatalog() {
             try {
                 const response = await fetch('catalog.json');
                 fullCatalog = await response.json();
                 renderCatalog('tudo');
+                
+                // Atualiza o select das configurações com o valor salvo
+                const langSelect = document.getElementById('pref-audio-lang');
+                if (langSelect) langSelect.value = preferredAudioLang;
             } catch (error) {
                 console.error("Erro ao carregar catálogo:", error);
             }
+        }
+
+        function setGlobalAudioPref(val) {
+            preferredAudioLang = val;
+            localStorage.setItem('gf_pref_audio', val);
         }
 
         function renderCatalog(filter) {
@@ -509,13 +528,26 @@
                 if(fullCatalog.movies) {
                     fullCatalog.movies.forEach(item => {
                         moviesRow.innerHTML += `
-                            <div class="catalog-item" onclick="startPlayer('${item.videoUrl}')">
+                            <div class="catalog-item" onclick="playMovieWithPref(${item.id})">
                                 <img src="${item.thumb}" alt="${item.title}">
                                 <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
                             </div>`;
                     });
                 }
             } else { moviesSection.style.display = 'none'; }
+        }
+
+        function playMovieWithPref(movieId) {
+            const movie = fullCatalog.movies.find(m => m.id === movieId);
+            if (!movie) return;
+
+            let targetUrl = movie.videoUrl;
+            if (movie.audios && Array.isArray(movie.audios)) {
+                const matchedAudio = movie.audios.find(a => a.lang === preferredAudioLang);
+                if (matchedAudio) targetUrl = matchedAudio.url;
+                else targetUrl = movie.audios[0].url;
+            }
+            startPlayer(targetUrl);
         }
 
         function openEpisodesModal(id) {
@@ -528,20 +560,23 @@
 
             serie.episodes.forEach(ep => {
                 let audioBtnsHTML = '';
-                
-                // Suporte a múltiplas faixas de áudio no JSON
+                let defaultUrl = ep.videoUrl;
+
                 if (ep.audios && Array.isArray(ep.audios)) {
                     audioBtnsHTML = '<div class="audio-buttons-container">';
                     ep.audios.forEach(aud => {
                         audioBtnsHTML += `<button class="btn-audio-option" onclick="event.stopPropagation(); closeModal('episodes-modal'); startPlayer('${aud.url}');">${aud.label}</button>`;
                     });
                     audioBtnsHTML += '</div>';
+
+                    // Seleciona a URL base baseada na configuração global do usuário
+                    const matchedAudio = ep.audios.find(a => a.lang === preferredAudioLang);
+                    if (matchedAudio) defaultUrl = matchedAudio.url;
+                    else defaultUrl = ep.audios[0].url;
                 }
 
-                const clickAction = (!ep.audios) ? `closeModal('episodes-modal'); startPlayer('${ep.videoUrl}')` : '';
-
                 list.innerHTML += `
-                    <div class="ep-item" onclick="${clickAction}">
+                    <div class="ep-item" onclick="closeModal('episodes-modal'); startPlayer('${defaultUrl}')">
                         <img src="${ep.thumb}">
                         <div style="width:100%;">
                             <h4 style="margin-bottom:4px;">${ep.title}</h4>
@@ -585,7 +620,7 @@
                             'disablekb': 1,
                             'modestbranding': 1,
                             'rel': 0,
-                            'cc_load_policy': 0 // Legenda inicia DESLIGADA por padrão
+                            'cc_load_policy': 0
                         },
                         events: {
                             'onReady': (e) => { 
