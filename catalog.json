@@ -262,6 +262,24 @@
           ]
         }
       ]
+    },
+    {
+      "id": 102,
+      "title": "COMPILADO TADC | (DUBLADO)",
+      "desc": "Fan dub - de: KayKay",
+      "rating": "12+",
+      "thumb": "https://i.ytimg.com/vi/WleaeY8vUpg/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAuIcHxKctq28zhpOBGvgQ_EWbwqg",
+      "episodes": [
+        {
+          "id": "tadc_kaykay_ep1",
+          "title": "COMPILADO TADC | (DUBLADO)",
+          "desc": "Fan dub - de: KayKay",
+          "thumb": "https://i.ytimg.com/vi/WleaeY8vUpg/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAuIcHxKctq28zhpOBGvgQ_EWbwqg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=WleaeY8vUpg" }
+          ]
+        }
+      ]
     }
   ],
   "musicas": [
