@@ -195,7 +195,7 @@
             color: #fff;
         }
 
-        /* --- PLAYER ULTRA-ESTÁVEL GLITCHFLIX --- */
+        /* --- PLAYER GLITCHFLIX --- */
         #player-container {
             display: none;
             position: fixed;
@@ -213,7 +213,7 @@
             left: -10%;
             width: 120%;
             height: 120%;
-            pointer-events: none; /* Desativa cliques do mouse no YouTube para não mostrar elementos */
+            pointer-events: none;
         }
         #yt-player, #native-video {
             width: 100%;
@@ -249,13 +249,13 @@
         .timeline-progress { height: 100%; background: var(--main-red); width: 0%; position: relative; }
 
         .control-buttons { display: flex; justify-content: space-between; align-items: center; color: #fff; }
-        .controls-left, .controls-right { display: flex; align-items: center; gap: 2rem; }
+        .controls-left, .controls-right { display: flex; align-items: center; gap: 1.2rem; }
         .player-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; }
         .player-btn svg { width: 28px; height: 28px; fill: currentColor; }
-        .slider-control { display: flex; align-items: center; gap: 0.8rem; }
+        .slider-control { display: flex; align-items: center; gap: 0.5rem; }
         .slider-control input[type="range"] {
             -webkit-appearance: none;
-            width: 80px;
+            width: 70px;
             height: 4px;
             background: rgba(255,255,255,0.3);
             border-radius: 2px;
@@ -267,6 +267,16 @@
             height: 12px;
             background: #fff;
             border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .select-picker {
+            background: #141414;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
             cursor: pointer;
         }
 
@@ -379,21 +389,33 @@
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
                     <div class="slider-control">
-                        <span style="font-size:0.8rem;">ÁUDIO</span>
+                        <span style="font-size:0.75rem;">VOL</span>
                         <input type="range" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)">
                     </div>
                     <div class="slider-control">
-                        <span style="font-size:0.8rem;">BRILHO</span>
+                        <span style="font-size:0.75rem;">BRILHO</span>
                         <input type="range" min="0.2" max="1.5" step="0.05" value="1" oninput="setBrightness(this.value)">
                     </div>
                 </div>
                 <div class="controls-right">
-                    <select id="speed-selector" style="background:#141414; color:#fff; border:1px solid #333; padding:5px; border-radius:4px;" onchange="setSpeed(this.value)">
-                        <option value="1" selected>1x (Normal)</option>
+                    <!-- Seleção de Áudio (Dublagem) -->
+                    <select id="audio-selector" class="select-picker" onchange="changeAudioTrack(this.value)">
+                        <option value="">Áudio: Padrão</option>
+                    </select>
+
+                    <!-- Seleção de Legendas -->
+                    <select id="caption-selector" class="select-picker" onchange="changeCaptionTrack(this.value)">
+                        <option value="off">Legenda: Desligada</option>
+                    </select>
+
+                    <!-- Velocidade de Reprodução -->
+                    <select id="speed-selector" class="select-picker" onchange="setSpeed(this.value)">
+                        <option value="1" selected>1x</option>
                         <option value="1.25">1.25x</option>
                         <option value="1.5">1.5x</option>
                         <option value="2">2x</option>
                     </select>
+
                     <button class="player-btn" onclick="toggleFullScreen()">
                         <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
                     </button>
@@ -438,7 +460,7 @@
     <script>
         let fullCatalog = { series: [], movies: [] };
         let ytPlayer = null;
-        let activeType = null; // 'youtube' ou 'native'
+        let activeType = null;
         let progressInterval = null;
 
         async function fetchCatalog() {
@@ -508,12 +530,14 @@
             openModal('episodes-modal');
         }
 
-        // --- CONTROLE UNIVERSAL DO PLAYER ---
+        // --- CONTROLE DO PLAYER ---
         const playerContainer = document.getElementById('player-container');
         const ytWrapper = document.getElementById('yt-wrapper');
         const nativeVideo = document.getElementById('native-video');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
+        const captionSelector = document.getElementById('caption-selector');
+        const audioSelector = document.getElementById('audio-selector');
 
         function extractYouTubeID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -536,15 +560,24 @@
                         videoId: ytId,
                         playerVars: {
                             'autoplay': 1,
-                            'controls': 0, // Desativa os controles do YouTube para usar os da GlitchFlix
+                            'controls': 0,
                             'disablekb': 1,
                             'modestbranding': 1,
                             'rel': 0,
-                            'showinfo': 0
+                            'cc_load_policy': 1 // Habilita o suporte de legendas
                         },
                         events: {
-                            'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
-                            'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
+                            'onReady': (e) => { 
+                                e.target.playVideo(); 
+                                startProgressTracker(); 
+                                loadYouTubeTrackOptions();
+                            },
+                            'onStateChange': (e) => { 
+                                updatePlayIcon(e.data === YT.PlayerState.PLAYING);
+                                if (e.data === YT.PlayerState.PLAYING) {
+                                    loadYouTubeTrackOptions();
+                                }
+                            }
                         }
                     });
                 } else {
@@ -557,6 +590,9 @@
                 ytWrapper.style.display = 'none';
                 if(ytPlayer) ytPlayer.stopVideo();
 
+                captionSelector.innerHTML = '<option value="off">Legenda: Não disponível</option>';
+                audioSelector.innerHTML = '<option value="">Áudio: Padrão</option>';
+
                 nativeVideo.style.display = 'block';
                 nativeVideo.src = url;
                 nativeVideo.play();
@@ -566,6 +602,46 @@
                     const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
                     progress.style.width = `${pct}%`;
                 };
+            }
+        }
+
+        // Carrega as opções de legenda e áudio/dublagem oferecidas pelo vídeo do YouTube
+        function loadYouTubeTrackOptions() {
+            if (!ytPlayer) return;
+
+            // Carregar legendas disponíveis
+            ytPlayer.loadModule('captions');
+            setTimeout(() => {
+                const tracks = ytPlayer.getOption('captions', 'tracklist') || [];
+                captionSelector.innerHTML = '<option value="off">Legenda: Desligada</option>';
+                tracks.forEach(track => {
+                    captionSelector.innerHTML += `<option value="${track.languageCode}">Legenda: ${track.displayName || track.languageName}</option>`;
+                });
+
+                // Carregar faixas de áudio/dublagem (se disponível no canal do vídeo)
+                if (ytPlayer.getAvailableAudioTracks) {
+                    const audioTracks = ytPlayer.getAvailableAudioTracks() || [];
+                    audioSelector.innerHTML = '<option value="">Áudio: Padrão</option>';
+                    audioTracks.forEach(track => {
+                        audioSelector.innerHTML += `<option value="${track.id}">Áudio: ${track.displayName || track.languageName}</option>`;
+                    });
+                }
+            }, 1000);
+        }
+
+        function changeCaptionTrack(langCode) {
+            if (activeType === 'youtube' && ytPlayer) {
+                if (langCode === 'off') {
+                    ytPlayer.setOption('captions', 'track', {});
+                } else {
+                    ytPlayer.setOption('captions', 'track', { languageCode: langCode });
+                }
+            }
+        }
+
+        function changeAudioTrack(trackId) {
+            if (activeType === 'youtube' && ytPlayer && ytPlayer.setAudioTrack && trackId) {
+                ytPlayer.setAudioTrack(trackId);
             }
         }
 
