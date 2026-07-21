@@ -244,5 +244,25 @@
         }
       ]
     }
+  ],
+  "musicas": [
+    {
+      "id": 201,
+      "title": "Mestre Mandou | Caine (The Amazing Digital Circus)",
+      "desc": "Music: Mestre Mandou | Caine Por: David",
+      "rating": "L",
+      "thumb": "https://i.ytimg.com/vi/0N9h4X8kmr8/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBt9h_KjyJMefbUz7SeA_9--udIhw",
+      "episodes": [
+        {
+          "id": "mus_caine_1",
+          "title": "Mestre Mandou | Caine (The Amazing Digital Circus)",
+          "desc": "Music: Mestre Mandou | Caine Por: David",
+          "thumb": "https://i.ytimg.com/vi/0N9h4X8kmr8/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBt9h_KjyJMefbUz7SeA_9--udIhw",
+          "audios": [
+            { "label": "🎵 Ouvir Música", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=0N9h4X8kmr8" }
+          ]
+        }
+      ]
+    }
   ]
 }
