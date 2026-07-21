@@ -195,7 +195,7 @@
             color: #fff;
         }
 
-        /* --- PLAYER DUAL (YOUTUBE + ARCHIVE/MP4) --- */
+        /* --- PLAYER ÚNICO DA GLITCHFLIX --- */
         #player-container {
             display: none;
             position: fixed;
@@ -206,10 +206,9 @@
             background: #000;
             z-index: 4000;
         }
-        #youtube-frame, #main-video {
+        #main-video {
             width: 100%;
             height: 100%;
-            border: none;
             object-fit: contain;
         }
         .player-controls {
@@ -260,21 +259,19 @@
             cursor: pointer;
         }
 
-        .close-player-btn {
+        #loading-overlay {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 4001;
-            background: rgba(0,0,0,0.6);
-            border: none;
-            color: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--main-red);
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: none;
+            letter-spacing: 1px;
         }
-        .close-player-btn svg { width: 24px; height: 24px; fill: #fff; }
 
-        /* --- MODAL DA SÉRIE / CONFIGS --- */
+        /* --- MODAIS --- */
         .modal {
             display: none;
             position: fixed;
@@ -363,20 +360,12 @@
         </div>
     </div>
 
-    <!-- PLAYER DE VÍDEO COMPATÍVEL COM YOUTUBE E MP4 -->
+    <!-- PLAYER NATIVO DA GLITCHFLIX (ZERO ANÚNCIOS DA APLICAÇÃO) -->
     <div id="player-container">
-        <button class="close-player-btn" onclick="closePlayer()">
-            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
+        <div id="loading-overlay">CARREGANDO STREAM...</div>
+        <video id="main-video" playsinline></video>
 
-        <!-- Player para Vídeos do YouTube -->
-        <iframe id="youtube-frame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="display:none;"></iframe>
-
-        <!-- Player para Arquivos Diretos (.mp4) -->
-        <video id="main-video" playsinline style="display:none;"></video>
-
-        <!-- Controles Customizados (Aplicados somente para arquivos diretos/MP4) -->
-        <div class="player-controls" id="native-controls" style="display:none;">
+        <div class="player-controls">
             <div class="timeline-container">
                 <div class="timeline" id="video-timeline" onmousedown="seekVideo(event)">
                     <div class="timeline-progress" id="video-progress"></div>
@@ -406,12 +395,15 @@
                     <button class="player-btn" onclick="toggleFullScreen()">
                         <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
                     </button>
+                    <button class="player-btn" style="color: var(--main-red);" onclick="closePlayer()">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE EPISÓDIOS -->
+    <!-- MODAIS -->
     <div id="episodes-modal" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('episodes-modal')">
@@ -424,7 +416,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIGURAÇÕES -->
     <div id="settings-modal" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('settings-modal')">
@@ -433,7 +424,7 @@
             <h2>Configurações</h2>
             <br>
             <div class="toggle-box">
-                <span>Modo Escuro (Padrão do Sistema)</span>
+                <span>Modo Escuro (Padrão)</span>
                 <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
             </div>
         </div>
@@ -448,7 +439,7 @@
                 fullCatalog = await response.json();
                 renderCatalog('tudo');
             } catch (error) {
-                console.error("Erro ao carregar catálogo remoto:", error);
+                console.error("Erro ao carregar catálogo:", error);
             }
         }
 
@@ -509,11 +500,10 @@
             openModal('episodes-modal');
         }
 
-        // --- SISTEMA INTELLIGENT PLAYER (YOUTUBE / DIRECT FILE) ---
+        // --- SISTEMA PROXY ANTI-ANÚNCIOS (PIPED / INVIDIOUS) ---
         const player = document.getElementById('player-container');
-        const ytFrame = document.getElementById('youtube-frame');
         const nativeVideo = document.getElementById('main-video');
-        const nativeControls = document.getElementById('native-controls');
+        const loading = document.getElementById('loading-overlay');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
 
@@ -523,37 +513,54 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function startPlayer(url) {
+        async function startPlayer(url) {
             player.style.display = 'block';
+            loading.style.display = 'block';
+            nativeVideo.style.display = 'none';
+
             const ytId = extractYouTubeID(url);
 
             if (ytId) {
-                // É um link do YouTube: usa o iframe do próprio YouTube com autoplay
-                nativeVideo.style.display = 'none';
-                nativeControls.style.display = 'none';
-                nativeVideo.pause();
+                // Se for YouTube, faz a ponte via API aberta (Piped) para pegar a URL limpa do arquivo .mp4 sem anúncios
+                try {
+                    const res = await fetch(`https://pipedapi.kavin.rocks/streams/${ytId}`);
+                    const data = await res.json();
+                    
+                    // Pega a melhor stream em vídeo + áudio combinados
+                    const stream = data.videoStreams.find(s => s.mimeType === 'video/mp4' && s.quality === '1080p') 
+                                || data.videoStreams.find(s => s.mimeType === 'video/mp4' && s.quality === '720p')
+                                || data.videoStreams.find(s => s.mimeType === 'video/mp4');
 
-                ytFrame.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
-                ytFrame.style.display = 'block';
+                    if(stream && stream.url) {
+                        playDirectStream(stream.url);
+                    } else {
+                        // Fallback em caso de indisponibilidade da instância do Piped
+                        playDirectStream(`https://invidious.privacydev.net/latest_version?id=${ytId}&italic=0`);
+                    }
+                } catch(e) {
+                    console.warn("Fallback de proxy ativado");
+                    playDirectStream(`https://invidious.privacydev.net/latest_version?id=${ytId}&italic=0`);
+                }
             } else {
-                // É um arquivo de vídeo direto (.mp4, .mkv, etc.): usa o player customizado
-                ytFrame.style.display = 'none';
-                ytFrame.src = "";
-
-                nativeVideo.src = url;
-                nativeVideo.style.display = 'block';
-                nativeControls.style.display = 'flex';
-                
-                document.getElementById('speed-selector').value = "1";
-                nativeVideo.playbackRate = 1.0;
-                nativeVideo.play();
-                updatePlayIcon(true);
-
-                nativeVideo.ontimeupdate = () => {
-                    const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
-                    progress.style.width = `${pct}%`;
-                };
+                // Se já for link direto (.mp4, .mkv), toca na hora
+                playDirectStream(url);
             }
+        }
+
+        function playDirectStream(directUrl) {
+            loading.style.display = 'none';
+            nativeVideo.style.display = 'block';
+
+            nativeVideo.src = directUrl;
+            document.getElementById('speed-selector').value = "1";
+            nativeVideo.playbackRate = 1.0;
+            nativeVideo.play();
+            updatePlayIcon(true);
+
+            nativeVideo.ontimeupdate = () => {
+                const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
+                progress.style.width = `${pct}%`;
+            };
         }
 
         function togglePlay() {
@@ -584,7 +591,6 @@
         function closePlayer() {
             nativeVideo.pause();
             nativeVideo.src = "";
-            ytFrame.src = "";
             player.style.display = 'none';
         }
 
