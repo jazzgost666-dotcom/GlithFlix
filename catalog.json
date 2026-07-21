@@ -12,7 +12,7 @@
           "desc": "Episódio Piloto",
           "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg",
           "audios": [
-            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" },
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w&list=PLafGR4QwgqrH_vaS7ttoO0tSeKfZxRBMe" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" }
           ]
         }
