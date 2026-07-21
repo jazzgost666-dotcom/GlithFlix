@@ -202,6 +202,15 @@
           "audios": [
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=sr_dwJYIyVM" }
           ]
+        },
+         {
+          "id": "copa_ep5",
+          "title": "A Incrível Copa Digital! | Episódio Especial |",
+          "desc": "Episódio Especial Final da Fan Dublagem de: GABII DNK",
+          "thumb": "https://i.ytimg.com/vi/xRcy_7HPDSc/hqdefault.jpg?sqp=-oaymwEnCOADEI4CSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDbN_jhtLcpQG-DRpKrNBrHgM7uDQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=xRcy_7HPDSc" }
+          ]
         }
       ]
     }
