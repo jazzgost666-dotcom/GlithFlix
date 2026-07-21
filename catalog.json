@@ -184,6 +184,15 @@
           "audios": [
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QhUa9mfJRS4" }
           ]
+        },
+        {
+          "id": "copa_ep3",
+          "title": "A Incrível Copa Digital - EP 3: Perdemos...",
+          "desc": "Episódio 2 da Fan Dublagem",
+          "thumb": "https://i.ytimg.com/vi/INY-5AmkMmE/hqdefault.jpg?sqp=-oaymwEnCOADEI4CSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC7RlgRJtKTn6scIeQueqNy-DXyvw",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=INY-5AmkMmE" }
+          ]
         }
       ]
     }
