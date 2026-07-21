@@ -60,6 +60,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Te8MC9M9vIg" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mOvhHim78YA" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 7: Beach Episode",
+          "desc": "Beach episode!!!!!!",
+          "thumb": "https://i.ytimg.com/vi/oaOG1xOk7XY/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDtNdt3XwdvCIGZRNu0la1KJYl42w",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Zj5gy-JavdY" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=oaOG1xOk7XY" }
+          ]
         }
       ]
     }
