@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glith-Flix</title>
+  <title>Plataforma de Séries</title>
   <style>
     :root {
-      --bg-main: #0f0f0f;
-      --bg-card: #181818;
-      --bg-card-hover: #222222;
-      --text-main: #ffffff;
+      --bg-color: #141414;
+      --card-bg: #1f1f1f;
+      --accent-color: #e50914;
+      --text-color: #ffffff;
       --text-sub: #aaaaaa;
-      --accent: #e50914;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     * {
@@ -22,359 +21,407 @@
     }
 
     body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      font-family: var(--font);
-      padding: 20px 16px;
-      line-height: 1.4;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-main);
+      overflow-x: hidden;
     }
 
-    header {
+    /* --- NAV BAR / CABEÇALHO --- */
+    navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 16px;
-      border-bottom: 1px solid #222;
-      padding-bottom: 16px;
+      padding: 15px 40px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0));
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
     }
 
-    h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-color);
     }
 
-    /* --- PERFIS --- */
-    .profiles-wrapper {
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 20px;
     }
 
-    .profile-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .nav-link {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 1rem;
       cursor: pointer;
-      position: relative;
-      width: 56px;
+      transition: color 0.2s;
     }
 
-    .profile-avatar-box {
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-color);
+      font-weight: bold;
+    }
+
+    /* --- PERFIL NO TOPO --- */
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .active-profile-avatar {
       position: relative;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
       overflow: hidden;
-      border: 2px solid transparent;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-      background-color: #333;
+      cursor: pointer;
     }
 
-    .profile-item:hover .profile-avatar-box {
-      transform: scale(1.05);
-    }
-
-    .profile-item.active .profile-avatar-box {
-      border-color: var(--accent);
-    }
-
-    .profile-avatar-box img {
+    .active-profile-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* Lápis de Edição no Hover */
-    .edit-pencil {
+    .edit-pencil-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
       justify-content: center;
       align-items: center;
       opacity: 0;
-      transition: opacity 0.2s ease;
-      font-size: 1.1rem;
-      color: #fff;
+      transition: opacity 0.2s;
+      font-size: 0.9rem;
     }
 
-    .profile-avatar-box:hover .edit-pencil {
+    .active-profile-avatar:hover .edit-pencil-overlay {
       opacity: 1;
     }
 
-    .profile-name-label {
-      font-size: 0.72rem;
-      margin-top: 4px;
-      color: var(--text-sub);
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-
-    .profile-item.active .profile-name-label {
-      color: var(--text-main);
-      font-weight: bold;
-    }
-
-    .btn-add-profile {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px dashed #444;
-      background: transparent;
-      color: var(--text-sub);
-      font-size: 1.4rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .btn-add-profile:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    #file-upload-input {
+    /* --- PÁGINAS --- */
+    .page {
       display: none;
+      padding-top: 80px;
+      min-height: 100vh;
     }
 
-    /* --- SEÇÕES & CARDS --- */
-    section {
-      margin-bottom: 40px;
+    .page.active {
+      display: block;
     }
 
-    section h2 {
-      font-size: 1.3rem;
-      margin-bottom: 16px;
-      color: #fff;
-      border-left: 4px solid var(--accent);
-      padding-left: 10px;
+    /* --- BANNER DE DESTAQUE --- */
+    .hero-banner {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 40px;
+      margin-bottom: 30px;
     }
 
-    .cards-grid {
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, var(--bg-color) 10%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.8) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--accent-color);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: #ddd;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    /* --- GRID DE EPISÓDIOS --- */
+    .container {
+      padding: 0 40px 40px 40px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .episodes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    .card {
-      background-color: var(--bg-card);
-      border-radius: 10px;
+    .ep-card {
+      background-color: var(--card-bg);
+      border-radius: 6px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      border: 1px solid #222;
-      transition: transform 0.2s ease, background-color 0.2s ease;
+      transition: transform 0.2s ease;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      background-color: var(--bg-card-hover);
+    .ep-card:hover {
+      transform: scale(1.03);
     }
 
-    .thumb-box {
+    .ep-thumb-wrapper {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      background-color: #000;
     }
 
-    .thumb-box img {
+    .ep-thumb-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* Barra Vermelha de Progresso */
-    .progress-track {
+    .progress-bar-container {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 4px;
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.3);
     }
 
-    .progress-fill {
+    .progress-bar-fill {
       height: 100%;
-      background-color: var(--accent);
+      background-color: var(--accent-color);
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.3s;
     }
 
-    .card-body {
-      padding: 14px;
+    .ep-info {
+      padding: 15px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      flex: 1;
+      flex-grow: 1;
     }
 
-    .card-title {
-      font-size: 0.95rem;
+    .ep-title {
+      font-size: 1rem;
       font-weight: 600;
-      color: #fff;
-      line-height: 1.3;
+      margin-bottom: 8px;
     }
 
-    .card-desc {
-      font-size: 0.8rem;
+    .ep-desc {
+      font-size: 0.85rem;
       color: var(--text-sub);
+      margin-bottom: 15px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .audio-list {
+    .ep-audios {
+      margin-top: auto;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: auto;
-      padding-top: 6px;
+      gap: 8px;
     }
 
-    .btn-audio {
-      background-color: #2a2a2a;
+    .btn-play {
+      background-color: #333;
       color: #fff;
-      border: 1px solid #3a3a3a;
+      border: none;
       padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.78rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
       cursor: pointer;
       text-align: left;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
+      transition: background-color 0.2s;
     }
 
-    .btn-audio:hover {
-      background-color: var(--accent);
-      border-color: var(--accent);
+    .btn-play:hover {
+      background-color: var(--accent-color);
     }
 
-    /* --- MODAL DO PLAYER --- */
-    .modal-overlay {
+    /* --- GERENCIADOR DE PERFIS (PÁGINA) --- */
+    .profiles-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .profile-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 3px solid transparent;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .profile-card.active .profile-box {
+      border-color: var(--accent-color);
+    }
+
+    .profile-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-add-prof {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      border: 2px dashed #555;
+      background: transparent;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* --- PLAYER MODAL --- */
+    .player-modal {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.92);
-      z-index: 9999;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
     }
 
-    .modal-container {
+    .player-container {
       position: relative;
-      width: 92%;
-      max-width: 900px;
+      width: 85%;
+      max-width: 1000px;
       aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
 
-    .btn-close-modal {
+    .btn-close-player {
       position: absolute;
-      top: -38px;
+      top: -40px;
       right: 0;
+      background: none;
+      border: none;
       color: #fff;
       font-size: 2rem;
       cursor: pointer;
-      background: none;
-      border: none;
-      line-height: 1;
     }
 
-    #player-iframe-target {
+    #yt-player {
       width: 100%;
       height: 100%;
     }
 
-    /* Ajustes para Telas Menores / Mobile */
-    @media (max-width: 600px) {
-      body {
-        padding: 12px;
-      }
-
-      .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-      }
-
-      .card-body {
-        padding: 10px;
-      }
-
-      .card-title {
-        font-size: 0.85rem;
-      }
-
-      .card-desc {
-        font-size: 0.75rem;
-      }
-
-      .btn-audio {
-        padding: 6px 8px;
-        font-size: 0.72rem;
-      }
-    }
+    #file-input { display: none; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Catálogo de Séries</h1>
-    <div class="profiles-wrapper">
-      <div id="profiles-container" style="display: flex; gap: 10px;"></div>
-      <button class="btn-add-profile" id="btn-add-profile" title="Criar novo perfil">+</button>
+  <navbar>
+    <div class="nav-brand">PLATAFORMA</div>
+    <div class="nav-links">
+      <span class="nav-link active" onclick="switchPage('series')">Séries</span>
+      <span class="nav-link" onclick="switchPage('fandubs')">FanDubs</span>
+      <span class="nav-link" onclick="switchPage('profiles')">Perfis</span>
     </div>
-  </header>
+    <div class="profile-section">
+      <div class="active-profile-avatar" id="nav-avatar" onclick="triggerPhotoUpload()">
+        <img id="nav-avatar-img" src="" alt="Perfil">
+        <div class="edit-pencil-overlay">✏️</div>
+      </div>
+    </div>
+  </navbar>
 
-  <main>
-    <section>
-      <h2>Séries Principais</h2>
-      <div class="cards-grid" id="grid-series"></div>
-    </section>
+  <input type="file" id="file-input" accept="image/*">
 
-    <section>
-      <h2>FanDubs</h2>
-      <div class="cards-grid" id="grid-fandubs"></div>
-    </section>
-  </main>
+  <!-- PÁGINA SÉRIES -->
+  <div id="page-series" class="page active">
+    <div id="series-hero"></div>
+    <div class="container">
+      <div class="section-title">Episódios</div>
+      <div class="episodes-grid" id="grid-series-episodes"></div>
+    </div>
+  </div>
 
-  <input type="file" id="file-upload-input" accept="image/*">
+  <!-- PÁGINA FANDUBS -->
+  <div id="page-fandubs" class="page">
+    <div id="fandubs-hero"></div>
+    <div class="container">
+      <div class="section-title">Episódios FanDub</div>
+      <div class="episodes-grid" id="grid-fandubs-episodes"></div>
+    </div>
+  </div>
 
-  <div class="modal-overlay" id="video-modal">
-    <div class="modal-container">
-      <button class="btn-close-modal" id="btn-close-modal">&times;</button>
-      <div id="player-iframe-target"></div>
+  <!-- PÁGINA PERFIS -->
+  <div id="page-profiles" class="page">
+    <div class="container" style="text-align: center; margin-top: 40px;">
+      <div class="section-title">Quem está assistindo?</div>
+      <div class="profiles-grid" id="profiles-manager-grid"></div>
+    </div>
+  </div>
+
+  <!-- MODAL PLAYER -->
+  <div class="player-modal" id="player-modal">
+    <div class="player-container">
+      <button class="btn-close-player" onclick="closePlayer()">&times;</button>
+      <div id="yt-player"></div>
     </div>
   </div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
-
   <script>
-    // --- DADOS DO CATÁLOGO (INTEGRAIS) ---
     const siteData = {
       "series": [
         {
           "id": 1,
           "title": "The Amazing Digital Circus",
-          "desc": "The Amazing Digital Circus is a psychological dark comedy...",
+          "desc": "The Amazing Digital Circus is a psychological dark comedy about a cast of cute cartoon characters trying to cope with arbitrary personal traumas.",
           "rating": "12+",
           "thumb": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2va3lO1isTlm0lahDByuisBVEEoLa_Y7IccD8rYTzxntMlnbGckc6Np6W&s=10",
           "episodes": [
@@ -383,80 +430,26 @@
               "desc": "Episódio Piloto",
               "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg",
               "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=HRdbWsE8oDM" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w&list=PLj64d_IPPOhTdfVu9hkZ8d_S3R_StKBuI" }
+                { "label": "🇧🇷 Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=HRdbWsE8oDM" },
+                { "label": "🇺🇸 Original (Inglês)", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" }
               ]
             },
             {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 2: Candy Carrier Chaos!",
-              "desc": "The gang are BACK for a WAaAaAaACKY candy filled adventure! They also discover that their lives literally have no meaning. Woohoo! So waaccky!!!!!",
+              "title": "Ep 2: Candy Carrier Chaos!",
+              "desc": "The gang are BACK for a WAaAaAaACKY candy filled adventure!",
               "thumb": "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg",
               "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=CS_CgGRHYqM" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=4ofJpOEXrZs" }
+                { "label": "🇧🇷 Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=CS_CgGRHYqM" },
+                { "label": "🇺🇸 Original (Inglês)", "url": "https://www.youtube.com/watch?v=4ofJpOEXrZs" }
               ]
             },
             {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 3: The Mystery Of Mildenhall Manor",
-              "desc": "The gang are back together to go on their next SPOOKY adventure. Kinger gets a shotgun! Zooble goes to therapy! Pomni goes to hell! So much fun awaits!!!!!",
-              "thumb": "https://i.ytimg.com/vi/bKjfw77cxeQ/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBtPdUeJyxQHo11M9se8NARwVfDLQ",
+              "title": "Ep 3: The Mystery Of Mildenhall Manor",
+              "desc": "Kinger gets a shotgun! Zooble goes to therapy! Pomni goes to hell!",
+              "thumb": "https://i.ytimg.com/vi/bKjfw77cxeQ/hq720.jpg",
               "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QbXW0TLs5yk" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=bKjfw77cxeQ" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 4: Fast Food Masquerade",
-              "desc": "Pomni and friends spend an honest day’s hard work at popular fast food chain; Spudsy’s! Keep an eye out though, Gangle is the manager and has a brand new mask… it’s like she’s a whole NEW person!",
-              "thumb": "https://i.ytimg.com/vi/Q9KWcWKo2T8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBqzcmSwOZXEvI6vZ_yhwXYIgE28Q",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=DwVfY-NK7gc" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=Q9KWcWKo2T8" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 5: Untitled",
-              "desc": "We aren't actually sure what this episode is about.",
-              "thumb": "https://i.ytimg.com/vi/L4p2gN2CzsA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCCgtPCC6pevCmYaXMHlg5-svGfmA",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=AKpMV5yW_vE" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=L4p2gN2CzsA" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 6: They All Get Guns",
-              "desc": "In this episode: gun.",
-              "thumb": "https://i.ytimg.com/vi/mOvhHim78YA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLB8G5kIREKBi4uF4nM9CKzYJR790Q",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Te8MC9M9vIg" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mOvhHim78YA" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 7: Beach Episode",
-              "desc": "Beach episode!!!!!!",
-              "thumb": "https://i.ytimg.com/vi/oaOG1xOk7XY/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDtNdt3XwdvCIGZRNu0la1KJYl42w",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=Zj5gy-JavdY" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=oaOG1xOk7XY" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 8: hjsakldfhl",
-              "desc": "OH...",
-              "thumb": "https://i.ytimg.com/vi/DMNlzf8PiEM/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBtJVMN9Mg4Xm-pKXWoCjW-VmRTOA",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=UwV87cSKGr8" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=DMNlzf8PiEM" }
-              ]
-            },
-            {
-              "title": "THE AMAZING DIGITAL CIRCUS - Ep 9: Remember",
-              "desc": "The Amazing Digital Circus comes to an end.",
-              "thumb": "https://i.ytimg.com/vi/PVy-bcTsO8A/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAKWKGcfoO9pF2_jEcP5Enj46-4KA",
-              "audios": [
-                { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=qmC8yRyqDkQ" },
-                { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=PVy-bcTsO8A" }
+                { "label": "🇧🇷 Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=QbXW0TLs5yk" },
+                { "label": "🇺🇸 Original (Inglês)", "url": "https://www.youtube.com/watch?v=bKjfw77cxeQ" }
               ]
             }
           ]
@@ -468,18 +461,14 @@
           "title": "A Incrível Copa Digital",
           "desc": "Série de Fan Dublagens da Incrível Copa Digital.",
           "rating": "10+",
-          "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDumKzOnONdT8ETg1nUCTldI0kKrA",
+          "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg",
           "episodes": [
             {
-              "title": "A Incrível Copa Digital - EP 1: Bota o endrick!!",
+              "title": "EP 1: Bota o endrick!!",
               "desc": "Episódio 1 da Fan Dublagem",
-              "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDumKzOnONdT8ETg1nUCTldI0kKrA",
+              "thumb": "https://i.ytimg.com/vi/xl6F1yMv40U/hq720.jpg",
               "audios": [
-                { 
-                  "label": "🇧🇷 Dublado (PT-BR)", 
-                  "lang": "pt-br", 
-                  "url": "https://www.youtube.com/watch?v=xl6F1yMv40U" 
-                }
+                { "label": "🇧🇷 Dublado (PT-BR)", "url": "https://www.youtube.com/watch?v=xl6F1yMv40U" }
               ]
             }
           ]
@@ -487,247 +476,227 @@
       ]
     };
 
-    // --- SISTEMA DE PERFIS LOCAL ---
+    // --- PERFIS ---
     let profiles = JSON.parse(localStorage.getItem('user_profiles')) || [
-      { id: 'p_default', name: 'Principal', avatar: 'https://via.placeholder.com/150/222222/FFFFFF?text=P1' }
+      { id: 'p1', name: 'Principal', avatar: 'https://via.placeholder.com/150/222/FFF?text=P1' }
     ];
     let activeProfileId = localStorage.getItem('active_profile_id') || profiles[0].id;
-    let editingProfileId = null;
-
-    const profilesContainer = document.getElementById('profiles-container');
-    const btnAddProfile = document.getElementById('btn-add-profile');
-    const fileUploadInput = document.getElementById('file-upload-input');
 
     function saveProfiles() {
       localStorage.setItem('user_profiles', JSON.stringify(profiles));
       localStorage.setItem('active_profile_id', activeProfileId);
+      updateNavAvatar();
     }
 
-    function renderProfiles() {
-      profilesContainer.innerHTML = '';
-      profiles.forEach(p => {
-        const item = document.createElement('div');
-        item.className = `profile-item ${p.id === activeProfileId ? 'active' : ''}`;
-        
-        item.innerHTML = `
-          <div class="profile-avatar-box">
-            <img src="${p.avatar}" alt="${p.name}">
-            <div class="edit-pencil" title="Alterar foto">✏️</div>
-          </div>
-          <span class="profile-name-label">${p.name}</span>
-        `;
+    function updateNavAvatar() {
+      const activeProf = profiles.find(p => p.id === activeProfileId) || profiles[0];
+      document.getElementById('nav-avatar-img').src = activeProf.avatar;
+    }
 
-        // Trocar de perfil ao clicar no item
-        item.onclick = () => {
+    function renderProfilesManager() {
+      const grid = document.getElementById('profiles-manager-grid');
+      grid.innerHTML = '';
+
+      profiles.forEach(p => {
+        const card = document.createElement('div');
+        card.className = `profile-card ${p.id === activeProfileId ? 'active' : ''}`;
+        card.innerHTML = `
+          <div class="profile-box">
+            <img src="${p.avatar}">
+          </div>
+          <span>${p.name}</span>
+        `;
+        card.onclick = () => {
           activeProfileId = p.id;
           saveProfiles();
-          renderProfiles();
-          renderCards();
+          renderProfilesManager();
+          renderContent();
         };
-
-        // Editar Foto ao clicar no lápis
-        const pencil = item.querySelector('.edit-pencil');
-        pencil.onclick = (e) => {
-          e.stopPropagation();
-          editingProfileId = p.id;
-          fileUploadInput.click();
-        };
-
-        profilesContainer.appendChild(item);
+        grid.appendChild(card);
       });
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'btn-add-prof';
+      addBtn.innerText = '+';
+      addBtn.onclick = () => {
+        const name = prompt('Nome do novo perfil:');
+        if (name) {
+          const newP = {
+            id: 'p_' + Date.now(),
+            name: name,
+            avatar: 'https://via.placeholder.com/150/222/FFF?text=' + name[0].toUpperCase()
+          };
+          profiles.push(newP);
+          activeProfileId = newP.id;
+          saveProfiles();
+          renderProfilesManager();
+          renderContent();
+        }
+      };
+      grid.appendChild(addBtn);
     }
 
-    btnAddProfile.onclick = () => {
-      const name = prompt('Nome do Perfil:');
-      if (name && name.trim() !== '') {
-        const newProf = {
-          id: 'p_' + Date.now(),
-          name: name.trim(),
-          avatar: 'https://via.placeholder.com/150/222222/FFFFFF?text=' + encodeURIComponent(name.trim()[0].toUpperCase())
-        };
-        profiles.push(newProf);
-        activeProfileId = newProf.id;
-        saveProfiles();
-        renderProfiles();
-        renderCards();
-      }
-    };
+    function triggerPhotoUpload() {
+      document.getElementById('file-input').click();
+    }
 
-    fileUploadInput.onchange = (e) => {
+    document.getElementById('file-input').onchange = (e) => {
       const file = e.target.files[0];
-      if (file && editingProfileId) {
+      if (file) {
         const reader = new FileReader();
         reader.onload = (evt) => {
-          const prof = profiles.find(p => p.id === editingProfileId);
-          if (prof) {
-            prof.avatar = evt.target.result;
+          const activeProf = profiles.find(p => p.id === activeProfileId);
+          if (activeProf) {
+            activeProf.avatar = evt.target.result;
             saveProfiles();
-            renderProfiles();
+            renderProfilesManager();
           }
         };
         reader.readAsDataURL(file);
       }
     };
 
-    // --- PROGRESSO & ARMAZENAMENTO ---
-    function getProfileProgress() {
+    // --- NAVEGAÇÃO DE PÁGINAS ---
+    function switchPage(pageName) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+      document.getElementById(`page-${pageName}`).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // --- PROGRESSO & CARDS ---
+    function getProgress() {
       return JSON.parse(localStorage.getItem(`progress_${activeProfileId}`)) || {};
     }
 
-    function saveEpisodeProgress(epTitle, currentTime, duration) {
+    function saveProgress(epTitle, currentTime, duration) {
       if (!epTitle || !duration) return;
-      const progress = getProfileProgress();
-      progress[epTitle] = {
-        time: currentTime,
-        duration: duration,
-        percent: (currentTime / duration) * 100
-      };
-      localStorage.setItem(`progress_${activeProfileId}`, JSON.stringify(progress));
-      renderCards(); // Atualiza a barra vermelha
+      const prog = getProgress();
+      prog[epTitle] = { time: currentTime, duration: duration, percent: (currentTime / duration) * 100 };
+      localStorage.setItem(`progress_${activeProfileId}`, JSON.stringify(prog));
+      renderContent();
     }
 
-    function extractYouTubeId(url) {
-      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-      return match ? match[1] : null;
-    }
+    function renderContent() {
+      const progData = getProgress();
 
-    // --- CARDS E CONTEÚDO ---
-    function renderCards() {
-      const gridSeries = document.getElementById('grid-series');
-      const gridFandubs = document.getElementById('grid-fandubs');
-
-      gridSeries.innerHTML = '';
-      gridFandubs.innerHTML = '';
-
-      const progressData = getProfileProgress();
-
-      // Renderiza Séries
-      siteData.series.forEach(s => {
-        s.episodes.forEach(ep => {
-          gridSeries.appendChild(createCard(ep, progressData));
-        });
-      });
-
-      // Renderiza FanDubs
-      siteData.fandubs.forEach(f => {
-        f.episodes.forEach(ep => {
-          gridFandubs.appendChild(createCard(ep, progressData));
-        });
-      });
-    }
-
-    function createCard(ep, progressData) {
-      const card = document.createElement('div');
-      card.className = 'card';
-
-      const epProg = progressData[ep.title] ? progressData[ep.title].percent : 0;
-
-      card.innerHTML = `
-        <div class="thumb-box">
-          <img src="${ep.thumb}" alt="${ep.title}">
-          <div class="progress-track">
-            <div class="progress-fill" style="width: ${epProg}%;"></div>
+      // Séries Page
+      const series = siteData.series[0];
+      document.getElementById('series-hero').innerHTML = `
+        <div class="hero-banner" style="background-image: url('${series.thumb}');">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <span class="hero-badge">${series.rating}</span>
+            <h1 class="hero-title">${series.title}</h1>
+            <p class="hero-desc">${series.desc}</p>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title">${ep.title}</div>
-          <div class="card-desc">${ep.desc}</div>
-          <div class="audio-list"></div>
         </div>
       `;
 
-      const audioList = card.querySelector('.audio-list');
+      const seriesGrid = document.getElementById('grid-series-episodes');
+      seriesGrid.innerHTML = '';
+      series.episodes.forEach(ep => seriesGrid.appendChild(createEpCard(ep, progData)));
+
+      // FanDubs Page
+      const fandub = siteData.fandubs[0];
+      document.getElementById('fandubs-hero').innerHTML = `
+        <div class="hero-banner" style="background-image: url('${fandub.thumb}');">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <span class="hero-badge">${fandub.rating}</span>
+            <h1 class="hero-title">${fandub.title}</h1>
+            <p class="hero-desc">${fandub.desc}</p>
+          </div>
+        </div>
+      `;
+
+      const fandubsGrid = document.getElementById('grid-fandubs-episodes');
+      fandubsGrid.innerHTML = '';
+      fandub.episodes.forEach(ep => fandubsGrid.appendChild(createEpCard(ep, progData)));
+    }
+
+    function createEpCard(ep, progData) {
+      const card = document.createElement('div');
+      card.className = 'ep-card';
+      const percent = progData[ep.title] ? progData[ep.title].percent : 0;
+
+      card.innerHTML = `
+        <div class="ep-thumb-wrapper">
+          <img src="${ep.thumb}">
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+          </div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-title">${ep.title}</div>
+          <div class="ep-desc">${ep.desc}</div>
+          <div class="ep-audios"></div>
+        </div>
+      `;
+
+      const audiosBox = card.querySelector('.ep-audios');
       ep.audios.forEach(aud => {
         const btn = document.createElement('button');
-        btn.className = 'btn-audio';
+        btn.className = 'btn-play';
         btn.innerText = `▶ ${aud.label}`;
-        btn.onclick = () => openPlayer(ep.title, aud.url);
-        audioList.appendChild(btn);
+        btn.onclick = () => playVideo(ep.title, aud.url);
+        audiosBox.appendChild(btn);
       });
 
       return card;
     }
 
-    // --- PLAYER DO YOUTUBE E AUTO-SAVE A CADA 10s ---
+    // --- YOUTUBE PLAYER & AUTO SAVE 10S ---
     let player = null;
-    let autoSaveTimer = null;
-    let currentPlayingTitle = null;
+    let currentTitle = null;
+    let autoSaveInterval = null;
 
-    function openPlayer(epTitle, videoUrl) {
-      const ytId = extractYouTubeId(videoUrl);
-      if (!ytId) {
-        alert('URL do vídeo é inválida.');
-        return;
-      }
+    function getYTId(url) {
+      const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      return m ? m[1] : null;
+    }
 
-      currentPlayingTitle = epTitle;
-      const modal = document.getElementById('video-modal');
-      modal.style.display = 'flex';
+    function playVideo(epTitle, url) {
+      const ytId = getYTId(url);
+      if (!ytId) return;
 
-      const progressData = getProfileProgress();
-      const savedTime = progressData[epTitle] ? progressData[epTitle].time : 0;
+      currentTitle = epTitle;
+      const progData = getProgress();
+      const startTime = progData[epTitle] ? progData[epTitle].time : 0;
+
+      document.getElementById('player-modal').style.display = 'flex';
 
       if (player && typeof player.loadVideoById === 'function') {
-        player.loadVideoById({ videoId: ytId, startSeconds: Math.floor(savedTime) });
+        player.loadVideoById({ videoId: ytId, startSeconds: Math.floor(startTime) });
       } else {
-        player = new YT.Player('player-iframe-target', {
+        player = new YT.Player('yt-player', {
           videoId: ytId,
-          playerVars: {
-            'autoplay': 1,
-            'start': Math.floor(savedTime)
-          },
-          events: {
-            'onStateChange': (evt) => {
-              if (evt.data === YT.PlayerState.PAUSED || evt.data === YT.PlayerState.ENDED) {
-                saveEpisodeProgress(currentPlayingTitle, player.getCurrentTime(), player.getDuration());
-              }
-            }
-          }
+          playerVars: { 'autoplay': 1, 'start': Math.floor(startTime) }
         });
       }
 
-      startAutoSave();
-    }
-
-    function startAutoSave() {
-      stopAutoSave();
-      autoSaveTimer = setInterval(() => {
-        if (player && typeof player.getCurrentTime === 'function' && typeof player.getDuration === 'function') {
-          const currentTime = player.getCurrentTime();
-          const duration = player.getDuration();
-          if (currentTime > 0) {
-            saveEpisodeProgress(currentPlayingTitle, currentTime, duration);
-          }
+      clearInterval(autoSaveInterval);
+      autoSaveInterval = setInterval(() => {
+        if (player && typeof player.getCurrentTime === 'function') {
+          saveProgress(currentTitle, player.getCurrentTime(), player.getDuration());
         }
-      }, 10000); // Exatamente a cada 10 segundos
+      }, 10000);
     }
 
-    function stopAutoSave() {
-      if (autoSaveTimer) {
-        clearInterval(autoSaveTimer);
-        autoSaveTimer = null;
-      }
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('video-modal');
-      modal.style.display = 'none';
-
+    function closePlayer() {
+      document.getElementById('player-modal').style.display = 'none';
       if (player && typeof player.getCurrentTime === 'function') {
-        saveEpisodeProgress(currentPlayingTitle, player.getCurrentTime(), player.getDuration());
+        saveProgress(currentTitle, player.getCurrentTime(), player.getDuration());
         player.stopVideo();
       }
-
-      stopAutoSave();
-      currentPlayingTitle = null;
+      clearInterval(autoSaveInterval);
     }
 
-    document.getElementById('btn-close-modal').onclick = closeModal;
-
-    // Inicialização do App
     window.onload = () => {
-      renderProfiles();
-      renderCards();
+      updateNavAvatar();
+      renderProfilesManager();
+      renderContent();
     };
   </script>
 </body>
