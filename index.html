@@ -13,9 +13,8 @@
             --gray-text: #808080;
         }
         .light-mode {
-            --bg-color: #f0f0f0;
+            --bg-color: #f5f5f5;
             --text-color: #141414;
-            --main-red: #E50914;
             --card-bg: #ffffff;
             --gray-text: #555555;
         }
@@ -33,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- TELA DE PERFIS --- */
+        /* --- TELA DE SELEÇÃO DE PERFIL --- */
         #profile-screen {
             display: flex;
             flex-direction: column;
@@ -43,7 +42,7 @@
             position: fixed;
             width: 100%;
             background: #141414;
-            z-index: 1000;
+            z-index: 3000;
         }
         #profile-screen h1 {
             font-size: 2.5rem;
@@ -66,111 +65,53 @@
         .profile-avatar {
             width: 120px;
             height: 120px;
-            background: #222;
+            background: #333;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 3px solid transparent;
             transition: border 0.2s;
-            overflow: hidden;
         }
-        .profile-avatar svg {
-            width: 50px;
-            height: 50px;
-            fill: var(--gray-text);
-        }
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-card:hover .profile-avatar {
-            border-color: #fff;
-        }
-        .profile-card:hover .profile-avatar svg {
-            fill: #fff;
-        }
-        .profile-name {
-            margin-top: 0.5rem;
-            font-size: 1rem;
-            color: var(--gray-text);
-        }
-        .profile-card:hover .profile-name {
-            color: #fff;
-        }
-        .btn-manage {
+        .profile-avatar svg { width: 60%; fill: #fff; }
+        .profile-card:hover .profile-avatar { border-color: #fff; }
+        .profile-name { margin-top: 0.7rem; font-size: 1rem; color: var(--gray-text); }
+        .profile-card:hover .profile-name { color: #fff; }
+        .btn-action {
             background: transparent;
             border: 1px solid var(--gray-text);
             color: var(--gray-text);
-            padding: 0.5rem 1.5rem;
+            padding: 0.6rem 2rem;
             cursor: pointer;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.85rem;
-            transition: all 0.2s;
+            transition: 0.2s;
         }
-        .btn-manage:hover {
-            border-color: #fff;
-            color: #fff;
-        }
+        .btn-action:hover { border-color: #fff; color: #fff; }
 
-        /* --- HOME PRINCIPAL --- */
+        /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 4%;
+            padding: 1.2rem 4%;
             position: sticky;
             top: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
             z-index: 100;
         }
-        .logo {
-            color: var(--main-red);
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-        }
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-right: 1.5rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-        nav a:hover {
-            opacity: 1;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-        .icon-btn {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .icon-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
+        .logo { color: var(--main-red); font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; }
+        nav { display: flex; gap: 1.5rem; margin-right: auto; margin-left: 3rem; }
+        nav a { color: var(--text-color); text-decoration: none; font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s; }
+        nav a:hover { opacity: 1; }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .icon-btn { background: none; border: none; color: var(--text-color); cursor: pointer; display: flex; align-items: center; }
+        .icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
         /* --- CATALOGO --- */
-        .main-container {
-            padding: 2rem 4%;
-        }
-        .row-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            font-weight: 500;
-        }
+        .main-container { padding: 2rem 4%; }
+        .row-title { font-size: 1.3rem; margin-bottom: 0.8rem; font-weight: 500; }
         .movie-row {
             display: flex;
             gap: 0.6rem;
@@ -178,214 +119,97 @@
             padding: 0.5rem 0 1.5rem 0;
             margin-bottom: 1.5rem;
         }
-        .movie-row::-webkit-scrollbar {
-            display: none;
-        }
+        .movie-row::-webkit-scrollbar { display: none; }
         .catalog-item {
-            min-width: 220px;
-            max-width: 220px;
-            height: 125px;
+            min-width: 240px;
+            max-width: 240px;
+            height: 135px;
             background: var(--card-bg);
             border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
-            flex-shrink: 0;
         }
-        .catalog-item:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-        .catalog-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .catalog-item:hover { transform: scale(1.05); z-index: 10; }
+        .catalog-item img { width: 100%; height: 100%; object-fit: cover; }
         .catalog-info {
             position: absolute;
             bottom: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
             width: 100%;
-            padding: 0.8rem 0.5rem 0.4rem 0.5rem;
-            font-size: 0.8rem;
+            padding: 1rem 0.5rem 0.5rem 0.5rem;
+            font-size: 0.85rem;
             color: #fff;
         }
 
-        /* --- PLAYER DE VÍDEO --- */
+        /* --- PLAYER GLITCHFLIX --- */
         #player-container {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 2000;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 4000; overflow: hidden;
         }
         .video-wrapper {
-            width: 100%;
-            height: 100%;
+            position: absolute; top: -10%; left: -10%;
+            width: 120%; height: 120%; pointer-events: none;
         }
-        #yt-player {
-            width: 100%;
-            height: 100%;
-        }
+        #yt-player, #native-video { width: 100%; height: 100%; object-fit: contain; }
+
         .player-controls {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s;
+            position: absolute; bottom: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+            padding: 2.5rem 2rem 1.5rem 2rem;
+            display: flex; flex-direction: column; gap: 1.5rem;
+            opacity: 0; transition: opacity 0.3s; z-index: 4005;
         }
-        #player-container:hover .player-controls {
-            opacity: 1;
+        #player-container:hover .player-controls { opacity: 1; }
+        
+        .timeline-container { display: flex; align-items: center; width: 100%; }
+        .timeline { width: 100%; height: 4px; background: rgba(255,255,255,0.2); cursor: pointer; position: relative; transition: height 0.1s; }
+        .timeline:hover { height: 6px; }
+        .timeline-progress { height: 100%; background: var(--main-red); width: 0%; position: relative; }
+
+        .control-buttons { display: flex; justify-content: space-between; align-items: center; color: #fff; }
+        .controls-left, .controls-right { display: flex; align-items: center; gap: 1.2rem; }
+        .player-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; }
+        .player-btn svg { width: 28px; height: 28px; fill: currentColor; }
+        .slider-control { display: flex; align-items: center; gap: 0.5rem; }
+        .slider-control input[type="range"] {
+            -webkit-appearance: none; width: 70px; height: 4px;
+            background: rgba(255,255,255,0.3); border-radius: 2px; outline: none;
         }
-        .timeline-container {
-            display: flex;
-            align-items: center;
-            width: 100%;
+        .slider-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 12px; height: 12px;
+            background: #fff; border-radius: 50%; cursor: pointer;
         }
-        .timeline {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            position: relative;
-        }
-        .timeline-progress {
-            height: 100%;
-            background: var(--main-red);
-            width: 0%;
-        }
-        .control-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #fff;
-        }
-        .controls-left, .controls-right {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-        .player-btn {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .player-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
+
         .select-picker {
-            background: #141414;
-            color: #fff;
-            border: 1px solid #333;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            background: #141414; color: #fff; border: 1px solid #333;
+            padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; cursor: pointer;
         }
 
         /* --- MODAIS --- */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1500;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
         }
         .modal-content {
-            background: #181818;
-            padding: 2.5rem;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 600px;
-            color: #fff;
-            position: relative;
-            max-height: 85vh;
-            overflow-y: auto;
+            background: #181818; padding: 2.5rem; border-radius: 8px;
+            width: 100%; max-width: 650px; color: #fff; position: relative;
+            max-height: 85vh; overflow-y: auto;
         }
-        .close-modal {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--gray-text);
-        }
-        .close-modal svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-
-        /* --- EPISÓDIOS --- */
-        .ep-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 1.2rem;
-        }
-        .ep-item {
-            display: flex;
-            gap: 1rem;
-            background: #222;
-            padding: 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .ep-item:hover {
-            background: #2a2a2a;
-        }
-        .ep-item img {
-            width: 120px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 2px;
-            background: #333;
-            flex-shrink: 0;
-        }
-        .btn-audio-option {
-            background: #333;
-            color: #fff;
-            border: 1px solid #555;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            margin-top: 0.4rem;
-            margin-right: 0.4rem;
-        }
-        .btn-audio-option:hover {
-            background: var(--main-red);
-            border-color: var(--main-red);
-        }
-
-        /* --- CONFIGURAÇÕES --- */
-        .toggle-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #282828;
-        }
+        .close-modal { position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; background: none; border: none; color: var(--gray-text); }
+        .close-modal svg { width: 24px; height: 24px; fill: currentColor; }
+        .ep-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+        .ep-item { display: flex; gap: 1rem; background: #222; padding: 0.8rem; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        .ep-item:hover { background: #2d2d2d; }
+        .ep-item img { width: 130px; height: 75px; object-fit: cover; border-radius: 2px; background: #333; }
+        
+        .toggle-box { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid #252525; }
+        .audio-buttons-container { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .btn-audio-option { background: #333; color: #fff; border: 1px solid #555; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; }
+        .btn-audio-option:hover { background: var(--main-red); border-color: var(--main-red); }
     </style>
 </head>
 <body>
@@ -401,26 +225,26 @@
                 <div class="profile-name">Visitante</div>
             </div>
         </div>
-        <button class="btn-manage" onclick="createNewProfile()">Adicionar Perfil</button>
+        <button class="btn-action" onclick="createNewProfile()">Criar Perfil Customizado</button>
     </div>
 
-    <!-- HEADER DA HOME -->
+    <!-- HEADER -->
     <header>
         <div class="logo">GLITCHFLIX</div>
         <nav>
-            <a href="#" onclick="filterCatalog('tudo')">Início</a>
-            <a href="#" onclick="filterCatalog('serie')">Séries</a>
-            <a href="#" onclick="filterCatalog('fandub')">Fan Dublagens</a>
+            <a href="#" onclick="renderCatalog('tudo')">Início</a>
+            <a href="#" onclick="renderCatalog('serie')">Séries</a>
+            <a href="#" onclick="renderCatalog('fandub')">Fan Dublagens</a>
         </nav>
         <div class="nav-right">
-            <button class="icon-btn" onclick="openModal('settings-modal')" title="Configurações">
+            <button class="icon-btn" onclick="openModal('settings-modal')">
                 <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0-.44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/></svg>
             </button>
-            <div id="user-display" style="font-size:0.85rem; color: var(--gray-text); cursor:pointer;" onclick="exitProfile()">Sair</div>
+            <div id="user-display" style="font-size: 0.9rem; border-left: 1px solid #333; padding-left: 1rem; color: var(--gray-text); cursor:pointer;" onclick="exitProfile()">Sair</div>
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL (CATÁLOGO) -->
+    <!-- CONTAINER DO CATÁLOGO -->
     <div class="main-container">
         <div id="series-section">
             <div class="row-title">Séries</div>
@@ -432,14 +256,16 @@
         </div>
     </div>
 
-    <!-- PLAYER DE VÍDEO -->
+    <!-- PLAYER EMBUTIDO DA GLITCHFLIX -->
     <div id="player-container">
-        <div class="video-wrapper">
+        <div class="video-wrapper" id="yt-wrapper" style="display:none;">
             <div id="yt-player"></div>
         </div>
+        <video id="native-video" playsinline style="display:none;"></video>
+
         <div class="player-controls">
             <div class="timeline-container">
-                <div class="timeline" id="video-timeline" onclick="seekVideo(event)">
+                <div class="timeline" id="video-timeline" onmousedown="seekVideo(event)">
                     <div class="timeline-progress" id="video-progress"></div>
                 </div>
             </div>
@@ -448,6 +274,14 @@
                     <button class="player-btn" onclick="togglePlay()" id="play-btn">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
+                    <div class="slider-control">
+                        <span style="font-size:0.75rem;">VOL</span>
+                        <input type="range" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)">
+                    </div>
+                    <div class="slider-control">
+                        <span style="font-size:0.75rem;">BRILHO</span>
+                        <input type="range" min="0.2" max="1.5" step="0.05" value="1" oninput="setBrightness(this.value)">
+                    </div>
                 </div>
                 <div class="controls-right">
                     <select id="speed-selector" class="select-picker" onchange="setSpeed(this.value)">
@@ -474,7 +308,7 @@
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
             <h2 id="modal-title"></h2>
-            <p id="modal-desc" style="color: var(--gray-text); margin: 0.5rem 0 1.5rem 0; font-size:0.9rem; line-height:1.4;"></p>
+            <p id="modal-desc" style="color: var(--gray-text); margin: 0.5rem 0 1.5rem 0; font-size:0.95rem; line-height:1.4;"></p>
             <h3 style="font-weight: 500; border-bottom:1px solid #333; padding-bottom:0.5rem;">Episódios</h3>
             <div class="ep-list" id="modal-episodes-list"></div>
         </div>
@@ -489,12 +323,15 @@
             <h2>Configurações do Sistema</h2>
             <br>
             <div class="toggle-box">
-                <span>Modo Escuro</span>
+                <span>Modo Escuro (Padrão)</span>
                 <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
             </div>
             <div class="toggle-box">
-                <span>Limpar Histórico de Progresso Local</span>
-                <button style="background: var(--main-red); color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;" onclick="clearUserProgress()">Resetar Progresso</button>
+                <span>Idioma / Dublagem Preferida</span>
+                <select id="pref-audio-lang" class="select-picker" onchange="setGlobalAudioPref(this.value)">
+                    <option value="pt-br">Português (PT-BR)</option>
+                    <option value="original">Original (Inglês/Nativo)</option>
+                </select>
             </div>
         </div>
     </div>
@@ -504,18 +341,28 @@
     <script>
         let fullCatalog = { series: [], fandubs: [] };
         let ytPlayer = null;
+        let activeType = null;
         let progressInterval = null;
-        let activeProfile = localStorage.getItem('gf_active_profile') || 'Visitante';
 
-        // --- SISTEMA DE DADOS (CATALOG.JSON) ---
+        let preferredAudioLang = localStorage.getItem('gf_pref_audio') || 'pt-br';
+
         async function fetchCatalog() {
             try {
                 const response = await fetch('catalog.json');
                 fullCatalog = await response.json();
+                
+                const langSelect = document.getElementById('pref-audio-lang');
+                if (langSelect) langSelect.value = preferredAudioLang;
+
                 renderCatalog('tudo');
             } catch (error) {
-                console.error("Erro ao carregar o catalog.json:", error);
+                console.error("Erro ao carregar catálogo:", error);
             }
+        }
+
+        function setGlobalAudioPref(val) {
+            preferredAudioLang = val;
+            localStorage.setItem('gf_pref_audio', val);
         }
 
         function renderCatalog(filter) {
@@ -527,6 +374,7 @@
             seriesRow.innerHTML = '';
             fandubsRow.innerHTML = '';
 
+            // Renderiza Séries
             if(filter === 'tudo' || filter === 'serie') {
                 seriesSection.style.display = 'block';
                 if(fullCatalog.series) {
@@ -534,12 +382,13 @@
                         seriesRow.innerHTML += `
                             <div class="catalog-item" onclick="openEpisodesModal(${item.id}, 'series')">
                                 <img src="${item.thumb}" alt="${item.title}">
-                                <div class="catalog-info"><strong>${item.title}</strong></div>
+                                <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
                             </div>`;
                     });
                 }
             } else { seriesSection.style.display = 'none'; }
 
+            // Renderiza Fan Dublagens
             if(filter === 'tudo' || filter === 'fandub') {
                 fandubsSection.style.display = 'block';
                 if(fullCatalog.fandubs) {
@@ -547,15 +396,11 @@
                         fandubsRow.innerHTML += `
                             <div class="catalog-item" onclick="openEpisodesModal(${item.id}, 'fandubs')">
                                 <img src="${item.thumb}" alt="${item.title}">
-                                <div class="catalog-info"><strong>${item.title}</strong></div>
+                                <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
                             </div>`;
                     });
                 }
             } else { fandubsSection.style.display = 'none'; }
-        }
-
-        function filterCatalog(type) {
-            renderCatalog(type);
         }
 
         function openEpisodesModal(id, category) {
@@ -571,23 +416,29 @@
 
             show.episodes.forEach(ep => {
                 let audioBtnsHTML = '';
-                let defaultUrl = '';
+                let defaultUrl = ep.videoUrl || '';
 
                 if (ep.audios && Array.isArray(ep.audios) && ep.audios.length > 0) {
-                    audioBtnsHTML = '<div>';
+                    audioBtnsHTML = '<div class="audio-buttons-container">';
                     ep.audios.forEach(aud => {
                         audioBtnsHTML += `<button class="btn-audio-option" onclick="event.stopPropagation(); closeModal('episodes-modal'); startPlayer('${aud.url}');">${aud.label}</button>`;
                     });
                     audioBtnsHTML += '</div>';
-                    defaultUrl = ep.audios[0].url;
+
+                    const matchedAudio = ep.audios.find(a => a.lang === preferredAudioLang);
+                    if (matchedAudio) {
+                        defaultUrl = matchedAudio.url;
+                    } else {
+                        defaultUrl = ep.audios[0].url;
+                    }
                 }
 
                 list.innerHTML += `
                     <div class="ep-item" onclick="closeModal('episodes-modal'); startPlayer('${defaultUrl}');">
                         <img src="${ep.thumb}">
                         <div style="width:100%;">
-                            <h4 style="margin-bottom:4px; font-size:0.95rem;">${ep.title}</h4>
-                            <p style="font-size:0.8rem; color:var(--gray-text); line-height:1.3;">${ep.desc}</p>
+                            <h4 style="margin-bottom:4px;">${ep.title}</h4>
+                            <p style="font-size:0.85rem; color:var(--gray-text); line-height:1.3;">${ep.desc}</p>
                             ${audioBtnsHTML}
                         </div>
                     </div>`;
@@ -595,8 +446,10 @@
             openModal('episodes-modal');
         }
 
-        // --- PLAYER DE VÍDEO DO YOUTUBE ---
+        /* --- PLAYER CONTROLS --- */
         const playerContainer = document.getElementById('player-container');
+        const ytWrapper = document.getElementById('yt-wrapper');
+        const nativeVideo = document.getElementById('native-video');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
 
@@ -607,31 +460,50 @@
         }
 
         function startPlayer(url) {
-            const ytId = extractYouTubeID(url);
-            if(!ytId) return;
-
             playerContainer.style.display = 'block';
+            const ytId = extractYouTubeID(url);
 
-            if (!ytPlayer) {
-                ytPlayer = new YT.Player('yt-player', {
-                    videoId: ytId,
-                    playerVars: { 'autoplay': 1, 'controls': 0, 'disablekb': 1, 'modestbranding': 1, 'rel': 0 },
-                    events: {
-                        'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
-                        'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
-                    }
-                });
+            if (ytId) {
+                activeType = 'youtube';
+                nativeVideo.style.display = 'none';
+                nativeVideo.pause();
+                ytWrapper.style.display = 'block';
+
+                if (!ytPlayer) {
+                    ytPlayer = new YT.Player('yt-player', {
+                        videoId: ytId,
+                        playerVars: { 'autoplay': 1, 'controls': 0, 'disablekb': 1, 'modestbranding': 1, 'rel': 0, 'cc_load_policy': 0 },
+                        events: {
+                            'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
+                            'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
+                        }
+                    });
+                } else {
+                    ytPlayer.loadVideoById(ytId);
+                    ytPlayer.playVideo();
+                    startProgressTracker();
+                }
             } else {
-                ytPlayer.loadVideoById(ytId);
-                ytPlayer.playVideo();
-                startProgressTracker();
+                activeType = 'native';
+                ytWrapper.style.display = 'none';
+                if(ytPlayer) ytPlayer.stopVideo();
+
+                nativeVideo.style.display = 'block';
+                nativeVideo.src = url;
+                nativeVideo.play();
+                updatePlayIcon(true);
+
+                nativeVideo.ontimeupdate = () => {
+                    const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
+                    progress.style.width = `${pct}%`;
+                };
             }
         }
 
         function startProgressTracker() {
             clearInterval(progressInterval);
             progressInterval = setInterval(() => {
-                if (ytPlayer && ytPlayer.getDuration) {
+                if (activeType === 'youtube' && ytPlayer && ytPlayer.getDuration) {
                     const cur = ytPlayer.getCurrentTime();
                     const dur = ytPlayer.getDuration();
                     if (dur > 0) {
@@ -643,10 +515,13 @@
         }
 
         function togglePlay() {
-            if (ytPlayer) {
+            if (activeType === 'youtube' && ytPlayer) {
                 const state = ytPlayer.getPlayerState();
                 if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
                 else ytPlayer.playVideo();
+            } else if (activeType === 'native') {
+                if (nativeVideo.paused) { nativeVideo.play(); updatePlayIcon(true); }
+                else { nativeVideo.pause(); updatePlayIcon(false); }
             }
         }
 
@@ -659,14 +534,26 @@
         function seekVideo(e) {
             const rect = document.getElementById('video-timeline').getBoundingClientRect();
             const pct = (e.clientX - rect.left) / rect.width;
-            if (ytPlayer) {
+
+            if (activeType === 'youtube' && ytPlayer) {
                 const dur = ytPlayer.getDuration();
                 ytPlayer.seekTo(pct * dur, true);
+            } else if (activeType === 'native') {
+                nativeVideo.currentTime = pct * nativeVideo.duration;
             }
         }
 
+        function setVolume(val) {
+            if (activeType === 'youtube' && ytPlayer) ytPlayer.setVolume(val * 100);
+            else nativeVideo.volume = val;
+        }
+
+        function setBrightness(val) { document.getElementById('player-container').style.filter = `brightness(${val})`; }
+
         function setSpeed(val) {
-            if (ytPlayer) ytPlayer.setPlaybackRate(parseFloat(val));
+            const rate = parseFloat(val);
+            if (activeType === 'youtube' && ytPlayer) ytPlayer.setPlaybackRate(rate);
+            else nativeVideo.playbackRate = rate;
         }
 
         function toggleFullScreen() {
@@ -677,50 +564,35 @@
         function closePlayer() {
             clearInterval(progressInterval);
             if (ytPlayer) ytPlayer.stopVideo();
+            nativeVideo.pause();
+            nativeVideo.src = "";
             playerContainer.style.display = 'none';
         }
 
-        // --- GESTÃO DE PERFIS ---
+        /* --- INTERFACE --- */
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function toggleTheme() { document.body.classList.toggle('light-mode', !document.getElementById('theme-toggle').checked); }
         function selectProfile(name) {
-            activeProfile = name;
-            localStorage.setItem('gf_active_profile', name);
             document.getElementById('profile-screen').style.display = 'none';
             document.getElementById('user-display').innerText = `${name} (Sair)`;
         }
-
-        function exitProfile() {
-            document.getElementById('profile-screen').style.display = 'flex';
-        }
-
+        function exitProfile() { document.getElementById('profile-screen').style.display = 'flex'; }
+        
         function createNewProfile() {
             const name = prompt("Nome do perfil:");
-            if(name && name.trim() !== '') {
+            if(name) {
                 const box = document.getElementById('profiles-box');
                 box.innerHTML += `
-                    <div class="profile-card" onclick="selectProfile('${name.trim()}')">
+                    <div class="profile-card" onclick="selectProfile('${name}')">
                         <div class="profile-avatar">
                             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
                         </div>
-                        <div class="profile-name">${name.trim()}</div>
+                        <div class="profile-name">${name}</div>
                     </div>`;
             }
         }
 
-        function clearUserProgress() {
-            if(confirm("Deseja apagar o progresso salvo do perfil?")) {
-                localStorage.clear();
-                alert("Histórico de progresso resetado com sucesso!");
-                location.reload();
-            }
-        }
-
-        // --- INTERFACE & MODAIS ---
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function toggleTheme() { document.body.classList.toggle('light-mode', !document.getElementById('theme-toggle').checked); }
-
-        // Inicializador
-        selectProfile(activeProfile);
         fetchCatalog();
     </script>
 </body>
