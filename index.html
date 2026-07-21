@@ -306,7 +306,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE EPISÓDIOS -->
+    <!-- MODAL DE EPISÓDIOS / MÚSICAS -->
     <div id="episodes-modal" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('episodes-modal')">
@@ -314,7 +314,7 @@
             </button>
             <h2 id="modal-title"></h2>
             <p id="modal-desc" style="color: var(--gray-text); margin: 0.5rem 0 1.5rem 0; font-size:0.95rem; line-height:1.4;"></p>
-            <h3 style="font-weight: 500; border-bottom:1px solid #333; padding-bottom:0.5rem;">Episódios</h3>
+            <h3 id="modal-list-heading" style="font-weight: 500; border-bottom:1px solid #333; padding-bottom:0.5rem;">Episódios</h3>
             <div class="ep-list" id="modal-episodes-list"></div>
         </div>
     </div>
@@ -433,6 +433,14 @@
 
             document.getElementById('modal-title').innerText = `${show.title} (${show.rating})`;
             document.getElementById('modal-desc').innerText = show.desc;
+
+            // Altera o título do modal dependendo se for música ou série/fandub
+            const listHeading = document.getElementById('modal-list-heading');
+            if (category === 'musicas') {
+                listHeading.innerText = 'Música:';
+            } else {
+                listHeading.innerText = 'Episódios';
+            }
             
             const list = document.getElementById('modal-episodes-list');
             list.innerHTML = '';
