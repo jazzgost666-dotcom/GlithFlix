@@ -98,6 +98,25 @@
           ]
         }
       ]
+    },
+    {
+      "id": 2,
+      "title": "Murder Drones",
+      "desc": "Murder Drones is a show about cute little robots that murder eachother for reasons 💀🤠",
+      "rating": "14+",
+      "thumb": "https://i.ytimg.com/vi/cEWQlcRYY3o/maxresdefault.jpg",
+      "episodes": [
+        {
+          "id": "md_ep1",
+          "title": "MURDER DRONES - Episode 1: PILOT",
+          "desc": "Episódio Piloto",
+          "thumb": "https://i.ytimg.com/vi/mImFz8mkaHo/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBCgWcvzewXc_WQblm2exQei2HotQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=_8il5qEAYzY" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mImFz8mkaHo" }
+          ]
+        }
+      ]
     }
   ],
   "fandubs": [
