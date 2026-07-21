@@ -125,6 +125,36 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=fQGvMaqYJGM" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=7z8DO1KhPFo" }
           ]
+        },
+        {
+          "id": "md_ep3",
+          "title": "MURDER DRONES - Episode 3: The Promening",
+          "desc": "Will you go to the prom with me?  🔪😈",
+          "thumb": "https://i.ytimg.com/vi/djsJqNAGMuY/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLB8XZNWH358Bo4_id7e1Ffk0kMwAg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=oNWcwSzSJzE" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=djsJqNAGMuY" }
+          ]
+        },
+        {
+          "id": "md_ep4",
+          "title": "MURDER DRONES - Episode 4: Cabin Fever",
+          "desc": "We goin campin' 🏕️ ... Uzi you ok?",
+          "thumb": "https://i.ytimg.com/vi/63bUBEIhpNk/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBnUec8YRC_E0pbqGb_30miCXZgnw",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=yhSkd0Vz58Y" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=63bUBEIhpNk" }
+          ]
+        },
+        {
+          "id": "md_ep5",
+          "title": "MURDER DRONES - Episode 5: Home",
+          "desc": "SPOOKY MANOR AND BIG REVEALS",
+          "thumb": "https://i.ytimg.com/vi/rk0HBqSqpgg/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBIgGYzrfpoNXXM9dL9HXcq840piw",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=WOCa2wM6GdI" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=rk0HBqSqpgg" }
+          ]
         }
       ]
     }
