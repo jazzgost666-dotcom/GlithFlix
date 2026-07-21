@@ -187,6 +187,25 @@
           ]
         }
       ]
+    },
+    {
+      "id": 3,
+      "title": "Gameoverse",
+      "desc": "Gameoverse is an action drama about video game worlds!!! And their heat death. Only one Cat girl can save them by... helping the villains?",
+      "rating": "14+",
+      "thumb": "https://i.ytimg.com/vi/1jNk5tmjhpc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCkWZ8uf4Z-TE0axcrWAVBux_gyiQ",
+      "episodes": [
+        {
+          "id": "gv_ep1",
+          "title": "GAMEOVERSE: PILOT",
+          "desc": "Episódio Piloto",
+          "thumb": "https://i.ytimg.com/vi/1jNk5tmjhpc/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBaF2TR_ggsIfcam8Hv25CZ0slYEQ",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=UG37cmOBJiY" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=1jNk5tmjhpc" }
+          ]
+        }
+      ]
     }
   ],
   "fandubs": [
@@ -256,7 +275,7 @@
         {
           "id": "mus_caine_1",
           "title": "Mestre Mandou | Caine (The Amazing Digital Circus)",
-          "desc": "Music: Mestre Mandou | Por: David",
+          "desc": "Music: Mestre Mandou | Caine Por: David",
           "thumb": "https://i.ytimg.com/vi/0N9h4X8kmr8/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBt9h_KjyJMefbUz7SeA_9--udIhw",
           "audios": [
             { "label": "🎵 Ouvir Música", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=0N9h4X8kmr8" }
