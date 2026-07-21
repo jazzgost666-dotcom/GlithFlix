@@ -115,6 +115,16 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=_8il5qEAYzY" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=mImFz8mkaHo" }
           ]
+        },
+        {
+          "id": "md_ep2",
+          "title": "MURDER DRONES - Episode 2: Heartbeat",
+          "desc": "WE ARE BACK ☠️🤖🔪",
+          "thumb": "https://i.ytimg.com/vi/7z8DO1KhPFo/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDUhekwkLqAI-9Ps7QO8mepa6pmFA",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=fQGvMaqYJGM" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=7z8DO1KhPFo" }
+          ]
         }
       ]
     }
