@@ -116,6 +116,15 @@
           "audios": [
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=xl6F1yMv40U" }
           ]
+        },
+        {
+          "id": "copa_ep2",
+          "title": "A Incrível Copa Digital - EP 2: Ancelloti... Bota o endrick!",
+          "desc": "Episódio 2 da Fan Dublagem",
+          "thumb": "https://i.ytimg.com/vi/QhUa9mfJRS4/hqdefault.jpg?sqp=-oaymwEnCOADEI4CSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLA-w2Y0MLFesdJ2uvzrEPP1uer5ng",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=QhUa9mfJRS4" }
+          ]
         }
       ]
     }
