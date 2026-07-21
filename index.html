@@ -195,7 +195,7 @@
             color: #fff;
         }
 
-        /* --- PLAYER ÚNICO DA GLITCHFLIX --- */
+        /* --- PLAYER ULTRA-ESTÁVEL GLITCHFLIX --- */
         #player-container {
             display: none;
             position: fixed;
@@ -205,12 +205,22 @@
             height: 100vh;
             background: #000;
             z-index: 4000;
+            overflow: hidden;
         }
-        #main-video {
+        .video-wrapper {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            pointer-events: none; /* Desativa cliques do mouse no YouTube para não mostrar elementos */
+        }
+        #yt-player, #native-video {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
+
         .player-controls {
             position: absolute;
             bottom: 0;
@@ -222,6 +232,7 @@
             gap: 1.5rem;
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 4005;
         }
         #player-container:hover .player-controls { opacity: 1; }
         
@@ -257,18 +268,6 @@
             background: #fff;
             border-radius: 50%;
             cursor: pointer;
-        }
-
-        #loading-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--main-red);
-            font-size: 1.2rem;
-            font-weight: bold;
-            display: none;
-            letter-spacing: 1px;
         }
 
         /* --- MODAIS --- */
@@ -360,10 +359,13 @@
         </div>
     </div>
 
-    <!-- PLAYER NATIVO DA GLITCHFLIX (ZERO ANÚNCIOS DA APLICAÇÃO) -->
+    <!-- PLAYER EMBUTIDO DA GLITCHFLIX -->
     <div id="player-container">
-        <div id="loading-overlay">CARREGANDO STREAM...</div>
-        <video id="main-video" playsinline></video>
+        <div class="video-wrapper" id="yt-wrapper" style="display:none;">
+            <div id="yt-player"></div>
+        </div>
+
+        <video id="native-video" playsinline style="display:none;"></video>
 
         <div class="player-controls">
             <div class="timeline-container">
@@ -430,8 +432,14 @@
         </div>
     </div>
 
+    <!-- SCRIPT DA API OFICIAL DO YOUTUBE -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
         let fullCatalog = { series: [], movies: [] };
+        let ytPlayer = null;
+        let activeType = null; // 'youtube' ou 'native'
+        let progressInterval = null;
 
         async function fetchCatalog() {
             try {
@@ -500,10 +508,10 @@
             openModal('episodes-modal');
         }
 
-        // --- SISTEMA PROXY ANTI-ANÚNCIOS (PIPED / INVIDIOUS) ---
-        const player = document.getElementById('player-container');
-        const nativeVideo = document.getElementById('main-video');
-        const loading = document.getElementById('loading-overlay');
+        // --- CONTROLE UNIVERSAL DO PLAYER ---
+        const playerContainer = document.getElementById('player-container');
+        const ytWrapper = document.getElementById('yt-wrapper');
+        const nativeVideo = document.getElementById('native-video');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
 
@@ -513,59 +521,77 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        async function startPlayer(url) {
-            player.style.display = 'block';
-            loading.style.display = 'block';
-            nativeVideo.style.display = 'none';
-
+        function startPlayer(url) {
+            playerContainer.style.display = 'block';
             const ytId = extractYouTubeID(url);
 
             if (ytId) {
-                // Se for YouTube, faz a ponte via API aberta (Piped) para pegar a URL limpa do arquivo .mp4 sem anúncios
-                try {
-                    const res = await fetch(`https://pipedapi.kavin.rocks/streams/${ytId}`);
-                    const data = await res.json();
-                    
-                    // Pega a melhor stream em vídeo + áudio combinados
-                    const stream = data.videoStreams.find(s => s.mimeType === 'video/mp4' && s.quality === '1080p') 
-                                || data.videoStreams.find(s => s.mimeType === 'video/mp4' && s.quality === '720p')
-                                || data.videoStreams.find(s => s.mimeType === 'video/mp4');
+                activeType = 'youtube';
+                nativeVideo.style.display = 'none';
+                nativeVideo.pause();
+                ytWrapper.style.display = 'block';
 
-                    if(stream && stream.url) {
-                        playDirectStream(stream.url);
-                    } else {
-                        // Fallback em caso de indisponibilidade da instância do Piped
-                        playDirectStream(`https://invidious.privacydev.net/latest_version?id=${ytId}&italic=0`);
-                    }
-                } catch(e) {
-                    console.warn("Fallback de proxy ativado");
-                    playDirectStream(`https://invidious.privacydev.net/latest_version?id=${ytId}&italic=0`);
+                if (!ytPlayer) {
+                    ytPlayer = new YT.Player('yt-player', {
+                        videoId: ytId,
+                        playerVars: {
+                            'autoplay': 1,
+                            'controls': 0, // Desativa os controles do YouTube para usar os da GlitchFlix
+                            'disablekb': 1,
+                            'modestbranding': 1,
+                            'rel': 0,
+                            'showinfo': 0
+                        },
+                        events: {
+                            'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
+                            'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
+                        }
+                    });
+                } else {
+                    ytPlayer.loadVideoById(ytId);
+                    ytPlayer.playVideo();
+                    startProgressTracker();
                 }
             } else {
-                // Se já for link direto (.mp4, .mkv), toca na hora
-                playDirectStream(url);
+                activeType = 'native';
+                ytWrapper.style.display = 'none';
+                if(ytPlayer) ytPlayer.stopVideo();
+
+                nativeVideo.style.display = 'block';
+                nativeVideo.src = url;
+                nativeVideo.play();
+                updatePlayIcon(true);
+
+                nativeVideo.ontimeupdate = () => {
+                    const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
+                    progress.style.width = `${pct}%`;
+                };
             }
         }
 
-        function playDirectStream(directUrl) {
-            loading.style.display = 'none';
-            nativeVideo.style.display = 'block';
-
-            nativeVideo.src = directUrl;
-            document.getElementById('speed-selector').value = "1";
-            nativeVideo.playbackRate = 1.0;
-            nativeVideo.play();
-            updatePlayIcon(true);
-
-            nativeVideo.ontimeupdate = () => {
-                const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
-                progress.style.width = `${pct}%`;
-            };
+        function startProgressTracker() {
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                if (activeType === 'youtube' && ytPlayer && ytPlayer.getDuration) {
+                    const cur = ytPlayer.getCurrentTime();
+                    const dur = ytPlayer.getDuration();
+                    if (dur > 0) {
+                        const pct = (cur / dur) * 100;
+                        progress.style.width = `${pct}%`;
+                    }
+                }
+            }, 500);
         }
 
         function togglePlay() {
-            if(nativeVideo.paused) { nativeVideo.play(); updatePlayIcon(true); } 
-            else { nativeVideo.pause(); updatePlayIcon(false); }
+            if (activeType === 'youtube' && ytPlayer) {
+                const state = ytPlayer.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
+                else ytPlayer.playVideo();
+            } else if (activeType === 'native') {
+                if (nativeVideo.paused) { nativeVideo.play(); updatePlayIcon(true); }
+                else { nativeVideo.pause(); updatePlayIcon(false); }
+            }
         }
 
         function updatePlayIcon(isPlaying) {
@@ -577,21 +603,41 @@
         function seekVideo(e) {
             const rect = document.getElementById('video-timeline').getBoundingClientRect();
             const pct = (e.clientX - rect.left) / rect.width;
-            nativeVideo.currentTime = pct * nativeVideo.duration;
+
+            if (activeType === 'youtube' && ytPlayer) {
+                const dur = ytPlayer.getDuration();
+                ytPlayer.seekTo(pct * dur, true);
+            } else if (activeType === 'native') {
+                nativeVideo.currentTime = pct * nativeVideo.duration;
+            }
         }
 
-        function setVolume(val) { nativeVideo.volume = val; }
-        function setBrightness(val) { nativeVideo.style.filter = `brightness(${val})`; }
-        function setSpeed(val) { nativeVideo.playbackRate = parseFloat(val); }
+        function setVolume(val) {
+            if (activeType === 'youtube' && ytPlayer) ytPlayer.setVolume(val * 100);
+            else nativeVideo.volume = val;
+        }
+
+        function setBrightness(val) {
+            document.getElementById('player-container').style.filter = `brightness(${val})`;
+        }
+
+        function setSpeed(val) {
+            const rate = parseFloat(val);
+            if (activeType === 'youtube' && ytPlayer) ytPlayer.setPlaybackRate(rate);
+            else nativeVideo.playbackRate = rate;
+        }
+
         function toggleFullScreen() {
-            if (!document.fullscreenElement) player.requestFullscreen();
+            if (!document.fullscreenElement) playerContainer.requestFullscreen();
             else document.exitFullscreen();
         }
 
         function closePlayer() {
+            clearInterval(progressInterval);
+            if (ytPlayer) ytPlayer.stopVideo();
             nativeVideo.pause();
             nativeVideo.src = "";
-            player.style.display = 'none';
+            playerContainer.style.display = 'none';
         }
 
         // --- GERENCIAMENTO DE INTERFACE ---
