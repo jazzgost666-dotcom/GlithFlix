@@ -42,6 +42,15 @@
             { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=DwVfY-NK7gc" },
             { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=Q9KWcWKo2T8" }
           ]
+        },
+        {
+          "title": "THE AMAZING DIGITAL CIRCUS - Ep 5: Untitled",
+          "desc": "We aren't actually sure what this episode is about.",
+          "thumb": "https://i.ytimg.com/vi/L4p2gN2CzsA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCCgtPCC6pevCmYaXMHlg5-svGfmA",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=AKpMV5yW_vE" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=L4p2gN2CzsA" }
+          ]
         }
       ]
     }
