@@ -3,28 +3,21 @@
     {
       "id": 1,
       "title": "The Amazing Digital Circus",
-      "desc": "The Amazing Digital Circus is a psychological dark comedy about cute cartoon characters who hate their lives and want to leave 🎪😀",
+      "desc": "The Amazing Digital Circus is a psychological dark comedy...",
       "rating": "12+",
       "thumb": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2va3lO1isTlm0lahDByuisBVEEoLa_Y7IccD8rYTzxntMlnbGckc6Np6W&s=10",
       "episodes": [
         {
           "title": "THE AMAZING DIGITAL CIRCUS: PILOT",
-          "desc": "",
-          "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCXEDL90QRFQn6ZRmhWD0gZXKPoiQ",
-          "videoUrl": "https://www.youtube.com/watch?v=HwAPLk_sQ3w"
+          "desc": "Episódio Piloto",
+          "thumb": "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg",
+          "audios": [
+            { "label": "🇧🇷 Dublado (PT-BR)", "lang": "pt-br", "url": "https://www.youtube.com/watch?v=LINK_DO_VIDEO_DUBLADO" },
+            { "label": "🇺🇸 Original (Inglês)", "lang": "original", "url": "https://www.youtube.com/watch?v=HwAPLk_sQ3w" }
+          ]
         }
       ]
     }
   ],
-  "movies": [
-    {
-      "id": 101,
-      "title": "Code Inferno",
-      "desc": "Um programador contra o relógio do deploy de sexta-feira.",
-      "rating": "14+",
-      "thumb": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600",
-      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-    }
-  ]
+  "movies": []
 }
- 
