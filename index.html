@@ -235,6 +235,7 @@
             <a href="#" onclick="renderCatalog('tudo')">Início</a>
             <a href="#" onclick="renderCatalog('serie')">Séries</a>
             <a href="#" onclick="renderCatalog('fandub')">Fan Dublagens</a>
+            <a href="#" onclick="renderCatalog('musica')">Músicas</a>
         </nav>
         <div class="nav-right">
             <button class="icon-btn" onclick="openModal('settings-modal')">
@@ -253,6 +254,10 @@
         <div id="fandubs-section">
             <div class="row-title">Fan Dublagens</div>
             <div class="movie-row" id="fandubs-row"></div>
+        </div>
+        <div id="musicas-section">
+            <div class="row-title">Músicas</div>
+            <div class="movie-row" id="musicas-row"></div>
         </div>
     </div>
 
@@ -339,7 +344,7 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        let fullCatalog = { series: [], fandubs: [] };
+        let fullCatalog = { series: [], fandubs: [], musicas: [] };
         let ytPlayer = null;
         let activeType = null;
         let progressInterval = null;
@@ -368,11 +373,15 @@
         function renderCatalog(filter) {
             const seriesRow = document.getElementById('series-row');
             const fandubsRow = document.getElementById('fandubs-row');
+            const musicasRow = document.getElementById('musicas-row');
+
             const seriesSection = document.getElementById('series-section');
             const fandubsSection = document.getElementById('fandubs-section');
+            const musicasSection = document.getElementById('musicas-section');
 
             seriesRow.innerHTML = '';
             fandubsRow.innerHTML = '';
+            musicasRow.innerHTML = '';
 
             // Renderiza Séries
             if(filter === 'tudo' || filter === 'serie') {
@@ -401,6 +410,20 @@
                     });
                 }
             } else { fandubsSection.style.display = 'none'; }
+
+            // Renderiza Músicas
+            if(filter === 'tudo' || filter === 'musica') {
+                musicasSection.style.display = 'block';
+                if(fullCatalog.musicas) {
+                    fullCatalog.musicas.forEach(item => {
+                        musicasRow.innerHTML += `
+                            <div class="catalog-item" onclick="openEpisodesModal(${item.id}, 'musicas')">
+                                <img src="${item.thumb}" alt="${item.title}">
+                                <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
+                            </div>`;
+                    });
+                }
+            } else { musicasSection.style.display = 'none'; }
         }
 
         function openEpisodesModal(id, category) {
