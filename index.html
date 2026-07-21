@@ -13,8 +13,9 @@
             --gray-text: #808080;
         }
         .light-mode {
-            --bg-color: #f5f5f5;
+            --bg-color: #f0f0f0;
             --text-color: #141414;
+            --main-red: #E50914;
             --card-bg: #ffffff;
             --gray-text: #555555;
         }
@@ -32,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* --- TELA DE SELEÇÃO DE PERFIL --- */
+        /* --- TELA DE PERFIS --- */
         #profile-screen {
             display: flex;
             flex-direction: column;
@@ -42,7 +43,7 @@
             position: fixed;
             width: 100%;
             background: #141414;
-            z-index: 3000;
+            z-index: 1000;
         }
         #profile-screen h1 {
             font-size: 2.5rem;
@@ -65,53 +66,111 @@
         .profile-avatar {
             width: 120px;
             height: 120px;
-            background: #333;
+            background: #222;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 3px solid transparent;
             transition: border 0.2s;
+            overflow: hidden;
         }
-        .profile-avatar svg { width: 60%; fill: #fff; }
-        .profile-card:hover .profile-avatar { border-color: #fff; }
-        .profile-name { margin-top: 0.7rem; font-size: 1rem; color: var(--gray-text); }
-        .profile-card:hover .profile-name { color: #fff; }
-        .btn-action {
+        .profile-avatar svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--gray-text);
+        }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-card:hover .profile-avatar {
+            border-color: #fff;
+        }
+        .profile-card:hover .profile-avatar svg {
+            fill: #fff;
+        }
+        .profile-name {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: var(--gray-text);
+        }
+        .profile-card:hover .profile-name {
+            color: #fff;
+        }
+        .btn-manage {
             background: transparent;
             border: 1px solid var(--gray-text);
             color: var(--gray-text);
-            padding: 0.6rem 2rem;
+            padding: 0.5rem 1.5rem;
             cursor: pointer;
-            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: 0.2s;
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
-        .btn-action:hover { border-color: #fff; color: #fff; }
+        .btn-manage:hover {
+            border-color: #fff;
+            color: #fff;
+        }
 
-        /* --- HEADER --- */
+        /* --- HOME PRINCIPAL --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 4%;
+            padding: 1rem 4%;
             position: sticky;
             top: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
             z-index: 100;
         }
-        .logo { color: var(--main-red); font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; }
-        nav { display: flex; gap: 1.5rem; margin-right: auto; margin-left: 3rem; }
-        nav a { color: var(--text-color); text-decoration: none; font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s; }
-        nav a:hover { opacity: 1; }
-        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-        .icon-btn { background: none; border: none; color: var(--text-color); cursor: pointer; display: flex; align-items: center; }
-        .icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        .logo {
+            color: var(--main-red);
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        nav a:hover {
+            opacity: 1;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .icon-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
 
         /* --- CATALOGO --- */
-        .main-container { padding: 2rem 4%; }
-        .row-title { font-size: 1.3rem; margin-bottom: 0.8rem; font-weight: 500; }
+        .main-container {
+            padding: 2rem 4%;
+        }
+        .row-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
         .movie-row {
             display: flex;
             gap: 0.6rem;
@@ -119,350 +178,215 @@
             padding: 0.5rem 0 1.5rem 0;
             margin-bottom: 1.5rem;
         }
-        .movie-row::-webkit-scrollbar { display: none; }
+        .movie-row::-webkit-scrollbar {
+            display: none;
+        }
         .catalog-item {
-            min-width: 240px;
-            max-width: 240px;
-            height: 135px;
+            min-width: 220px;
+            max-width: 220px;
+            height: 125px;
             background: var(--card-bg);
             border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
-        .catalog-item:hover { transform: scale(1.05); z-index: 10; }
-        .catalog-item img { width: 100%; height: 100%; object-fit: cover; }
+        .catalog-item:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .catalog-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .catalog-info {
             position: absolute;
             bottom: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
             width: 100%;
-            padding: 1rem 0.5rem 0.5rem 0.5rem;
-            font-size: 0.85rem;
+            padding: 0.8rem 0.5rem 0.4rem 0.5rem;
+            font-size: 0.8rem;
             color: #fff;
         }
 
-        /* --- PLAYER GLITCHFLIX --- */
+        /* --- PLAYER DE VÍDEO --- */
         #player-container {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000; z-index: 4000; overflow: hidden;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
         }
         .video-wrapper {
-            position: absolute; top: -10%; left: -10%;
-            width: 120%; height: 120%; pointer-events: none;
+            width: 100%;
+            height: 100%;
         }
-        #yt-player, #native-video { width: 100%; height: 100%; object-fit: contain; }
-
+        #yt-player {
+            width: 100%;
+            height: 100%;
+        }
         .player-controls {
-            position: absolute; bottom: 0; width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
-            padding: 2.5rem 2rem 1.5rem 2rem;
-            display: flex; flex-direction: column; gap: 1.5rem;
-            opacity: 0; transition: opacity 0.3s; z-index: 4005;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        #player-container:hover .player-controls { opacity: 1; }
-        
-        .timeline-container { display: flex; align-items: center; width: 100%; }
-        .timeline { width: 100%; height: 4px; background: rgba(255,255,255,0.2); cursor: pointer; position: relative; transition: height 0.1s; }
-        .timeline:hover { height: 6px; }
-        .timeline-progress { height: 100%; background: var(--main-red); width: 0%; position: relative; }
-
-        .control-buttons { display: flex; justify-content: space-between; align-items: center; color: #fff; }
-        .controls-left, .controls-right { display: flex; align-items: center; gap: 1.2rem; }
-        .player-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; }
-        .player-btn svg { width: 28px; height: 28px; fill: currentColor; }
-        .slider-control { display: flex; align-items: center; gap: 0.5rem; }
-        .slider-control input[type="range"] {
-            -webkit-appearance: none; width: 70px; height: 4px;
-            background: rgba(255,255,255,0.3); border-radius: 2px; outline: none;
+        #player-container:hover .player-controls {
+            opacity: 1;
         }
-        .slider-control input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; width: 12px; height: 12px;
-            background: #fff; border-radius: 50%; cursor: pointer;
+        .timeline-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
-
+        .timeline {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+        }
+        .timeline-progress {
+            height: 100%;
+            background: var(--main-red);
+            width: 0%;
+        }
+        .control-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        .controls-left, .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .player-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .player-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
         .select-picker {
-            background: #141414; color: #fff; border: 1px solid #333;
-            padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; cursor: pointer;
+            background: #141414;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
 
         /* --- MODAIS --- */
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
         }
         .modal-content {
-            background: #181818; padding: 2.5rem; border-radius: 8px;
-            width: 100%; max-width: 650px; color: #fff; position: relative;
-            max-height: 85vh; overflow-y: auto;
+            background: #181818;
+            padding: 2.5rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            color: #fff;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
         }
-        .close-modal { position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; background: none; border: none; color: var(--gray-text); }
-        .close-modal svg { width: 24px; height: 24px; fill: currentColor; }
-        .ep-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
-        .ep-item { display: flex; gap: 1rem; background: #222; padding: 0.8rem; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
-        .ep-item:hover { background: #2d2d2d; }
-        .ep-item img { width: 130px; height: 75px; object-fit: cover; border-radius: 2px; background: #333; }
-        
-        .toggle-box { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid #252525; }
-        .audio-buttons-container { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-        .btn-audio-option { background: #333; color: #fff; border: 1px solid #555; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; }
-        .btn-audio-option:hover { background: var(--main-red); border-color: var(--main-red); }
+        .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--gray-text);
+        }
+        .close-modal svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* --- EPISÓDIOS --- */
+        .ep-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+        .ep-item {
+            display: flex;
+            gap: 1rem;
+            background: #222;
+            padding: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .ep-item:hover {
+            background: #2a2a2a;
+        }
+        .ep-item img {
+            width: 120px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #333;
+            flex-shrink: 0;
+        }
+        .btn-audio-option {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-top: 0.4rem;
+            margin-right: 0.4rem;
+        }
+        .btn-audio-option:hover {
+            background: var(--main-red);
+            border-color: var(--main-red);
+        }
+
+        /* --- CONFIGURAÇÕES --- */
+        .toggle-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #282828;
+        }
     </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma de Vídeos</title>
-  <style>
-    :root {
-      --bg-color: #141414;
-      --card-bg: #1f1f1f;
-      --text-color: #ffffff;
-      --accent-color: #e50914;
-      --font-family: Arial, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: var(--font-family);
-      padding: 16px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    /* --- PERFIS --- */
-    .profiles-container {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .profile-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 64px;
-      cursor: pointer;
-    }
-
-    .profile-avatar-wrapper {
-      position: relative;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid transparent;
-    }
-
-    .profile-card.active .profile-avatar-wrapper {
-      border-color: var(--accent-color);
-    }
-
-    .profile-avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .edit-pencil {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      color: #fff;
-      font-size: 1.2rem;
-    }
-
-    .profile-avatar-wrapper:hover .edit-pencil {
-      opacity: 1;
-    }
-
-    .profile-name {
-      font-size: 0.75rem;
-      margin-top: 4px;
-      text-align: center;
-      word-break: break-all;
-    }
-
-    .add-profile-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: 2px dashed #555;
-      background: transparent;
-      color: #fff;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    #file-input {
-      display: none;
-    }
-
-    /* --- SEÇÕES & CARDS --- */
-    section {
-      margin-bottom: 32px;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .thumb-wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 */
-      background-color: #000;
-    }
-
-    .thumb-wrapper img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Barra vermelha de progresso assistido */
-    .progress-bar-container {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background-color: var(--accent-color);
-      width: 0%;
-    }
-
-    .card-content {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
-    .card-desc {
-      font-size: 0.8rem;
-      color: #aaa;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .audios-container {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: auto;
-    }
-
-    .audio-btn {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    /* --- MODAL DO PLAYER --- */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .modal-content {
-      position: relative;
-      width: 90%;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      color: #fff;
-      font-size: 2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    #youtube-player-container {
-      width: 100%;
-      height: 100%;
-    }
-
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -477,31 +401,26 @@
                 <div class="profile-name">Visitante</div>
             </div>
         </div>
-        <button class="btn-action" onclick="createNewProfile()">Criar Perfil Customizado</button>
-  <header>
-    <h1>Minhas Séries</h1>
-    <div class="profiles-container">
-      <div id="profiles-list" style="display: flex; gap: 12px;"></div>
-      <button class="add-profile-btn" id="add-profile-btn" title="Criar novo perfil">+</button>
+        <button class="btn-manage" onclick="createNewProfile()">Adicionar Perfil</button>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER DA HOME -->
     <header>
         <div class="logo">GLITCHFLIX</div>
         <nav>
-            <a href="#" onclick="renderCatalog('tudo')">Início</a>
-            <a href="#" onclick="renderCatalog('serie')">Séries</a>
-            <a href="#" onclick="renderCatalog('fandub')">Fan Dublagens</a>
+            <a href="#" onclick="filterCatalog('tudo')">Início</a>
+            <a href="#" onclick="filterCatalog('serie')">Séries</a>
+            <a href="#" onclick="filterCatalog('fandub')">Fan Dublagens</a>
         </nav>
         <div class="nav-right">
-            <button class="icon-btn" onclick="openModal('settings-modal')">
+            <button class="icon-btn" onclick="openModal('settings-modal')" title="Configurações">
                 <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0-.44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/></svg>
             </button>
-            <div id="user-display" style="font-size: 0.9rem; border-left: 1px solid #333; padding-left: 1rem; color: var(--gray-text); cursor:pointer;" onclick="exitProfile()">Sair</div>
+            <div id="user-display" style="font-size:0.85rem; color: var(--gray-text); cursor:pointer;" onclick="exitProfile()">Sair</div>
         </div>
     </header>
 
-    <!-- CONTAINER DO CATÁLOGO -->
+    <!-- CONTEÚDO PRINCIPAL (CATÁLOGO) -->
     <div class="main-container">
         <div id="series-section">
             <div class="row-title">Séries</div>
@@ -513,16 +432,14 @@
         </div>
     </div>
 
-    <!-- PLAYER EMBUTIDO DA GLITCHFLIX -->
+    <!-- PLAYER DE VÍDEO -->
     <div id="player-container">
-        <div class="video-wrapper" id="yt-wrapper" style="display:none;">
+        <div class="video-wrapper">
             <div id="yt-player"></div>
         </div>
-        <video id="native-video" playsinline style="display:none;"></video>
-
         <div class="player-controls">
             <div class="timeline-container">
-                <div class="timeline" id="video-timeline" onmousedown="seekVideo(event)">
+                <div class="timeline" id="video-timeline" onclick="seekVideo(event)">
                     <div class="timeline-progress" id="video-progress"></div>
                 </div>
             </div>
@@ -531,14 +448,6 @@
                     <button class="player-btn" onclick="togglePlay()" id="play-btn">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <div class="slider-control">
-                        <span style="font-size:0.75rem;">VOL</span>
-                        <input type="range" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)">
-                    </div>
-                    <div class="slider-control">
-                        <span style="font-size:0.75rem;">BRILHO</span>
-                        <input type="range" min="0.2" max="1.5" step="0.05" value="1" oninput="setBrightness(this.value)">
-                    </div>
                 </div>
                 <div class="controls-right">
                     <select id="speed-selector" class="select-picker" onchange="setSpeed(this.value)">
@@ -565,7 +474,7 @@
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
             <h2 id="modal-title"></h2>
-            <p id="modal-desc" style="color: var(--gray-text); margin: 0.5rem 0 1.5rem 0; font-size:0.95rem; line-height:1.4;"></p>
+            <p id="modal-desc" style="color: var(--gray-text); margin: 0.5rem 0 1.5rem 0; font-size:0.9rem; line-height:1.4;"></p>
             <h3 style="font-weight: 500; border-bottom:1px solid #333; padding-bottom:0.5rem;">Episódios</h3>
             <div class="ep-list" id="modal-episodes-list"></div>
         </div>
@@ -580,67 +489,33 @@
             <h2>Configurações do Sistema</h2>
             <br>
             <div class="toggle-box">
-                <span>Modo Escuro (Padrão)</span>
+                <span>Modo Escuro</span>
                 <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
             </div>
             <div class="toggle-box">
-                <span>Idioma / Dublagem Preferida</span>
-                <select id="pref-audio-lang" class="select-picker" onchange="setGlobalAudioPref(this.value)">
-                    <option value="pt-br">Português (PT-BR)</option>
-                    <option value="original">Original (Inglês/Nativo)</option>
-                </select>
+                <span>Limpar Histórico de Progresso Local</span>
+                <button style="background: var(--main-red); color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;" onclick="clearUserProgress()">Resetar Progresso</button>
             </div>
         </div>
-  </header>
-
-  <main>
-    <section>
-      <h2>Séries Principais</h2>
-      <div class="grid" id="series-grid"></div>
-    </section>
-
-    <section>
-      <h2>FanDubs</h2>
-      <div class="grid" id="fandubs-grid"></div>
-    </section>
-  </main>
-
-  <input type="file" id="file-input" accept="image/*">
-
-  <div class="modal" id="video-modal">
-    <div class="modal-content">
-      <button class="modal-close" id="modal-close">&times;</button>
-      <div id="youtube-player-container"></div>
     </div>
-  </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
         let fullCatalog = { series: [], fandubs: [] };
         let ytPlayer = null;
-        let activeType = null;
         let progressInterval = null;
+        let activeProfile = localStorage.getItem('gf_active_profile') || 'Visitante';
 
-        let preferredAudioLang = localStorage.getItem('gf_pref_audio') || 'pt-br';
-
+        // --- SISTEMA DE DADOS (CATALOG.JSON) ---
         async function fetchCatalog() {
             try {
                 const response = await fetch('catalog.json');
                 fullCatalog = await response.json();
-                
-                const langSelect = document.getElementById('pref-audio-lang');
-                if (langSelect) langSelect.value = preferredAudioLang;
-
                 renderCatalog('tudo');
             } catch (error) {
-                console.error("Erro ao carregar catálogo:", error);
+                console.error("Erro ao carregar o catalog.json:", error);
             }
-        }
-
-        function setGlobalAudioPref(val) {
-            preferredAudioLang = val;
-            localStorage.setItem('gf_pref_audio', val);
         }
 
         function renderCatalog(filter) {
@@ -652,7 +527,6 @@
             seriesRow.innerHTML = '';
             fandubsRow.innerHTML = '';
 
-            // Renderiza Séries
             if(filter === 'tudo' || filter === 'serie') {
                 seriesSection.style.display = 'block';
                 if(fullCatalog.series) {
@@ -660,13 +534,12 @@
                         seriesRow.innerHTML += `
                             <div class="catalog-item" onclick="openEpisodesModal(${item.id}, 'series')">
                                 <img src="${item.thumb}" alt="${item.title}">
-                                <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
+                                <div class="catalog-info"><strong>${item.title}</strong></div>
                             </div>`;
                     });
                 }
             } else { seriesSection.style.display = 'none'; }
 
-            // Renderiza Fan Dublagens
             if(filter === 'tudo' || filter === 'fandub') {
                 fandubsSection.style.display = 'block';
                 if(fullCatalog.fandubs) {
@@ -674,11 +547,15 @@
                         fandubsRow.innerHTML += `
                             <div class="catalog-item" onclick="openEpisodesModal(${item.id}, 'fandubs')">
                                 <img src="${item.thumb}" alt="${item.title}">
-                                <div class="catalog-info"><strong>${item.title}</strong> • ${item.rating}</div>
+                                <div class="catalog-info"><strong>${item.title}</strong></div>
                             </div>`;
                     });
                 }
             } else { fandubsSection.style.display = 'none'; }
+        }
+
+        function filterCatalog(type) {
+            renderCatalog(type);
         }
 
         function openEpisodesModal(id, category) {
@@ -694,29 +571,23 @@
 
             show.episodes.forEach(ep => {
                 let audioBtnsHTML = '';
-                let defaultUrl = ep.videoUrl || '';
+                let defaultUrl = '';
 
                 if (ep.audios && Array.isArray(ep.audios) && ep.audios.length > 0) {
-                    audioBtnsHTML = '<div class="audio-buttons-container">';
+                    audioBtnsHTML = '<div>';
                     ep.audios.forEach(aud => {
                         audioBtnsHTML += `<button class="btn-audio-option" onclick="event.stopPropagation(); closeModal('episodes-modal'); startPlayer('${aud.url}');">${aud.label}</button>`;
                     });
                     audioBtnsHTML += '</div>';
-
-                    const matchedAudio = ep.audios.find(a => a.lang === preferredAudioLang);
-                    if (matchedAudio) {
-                        defaultUrl = matchedAudio.url;
-                    } else {
-                        defaultUrl = ep.audios[0].url;
-                    }
+                    defaultUrl = ep.audios[0].url;
                 }
 
                 list.innerHTML += `
                     <div class="ep-item" onclick="closeModal('episodes-modal'); startPlayer('${defaultUrl}');">
                         <img src="${ep.thumb}">
                         <div style="width:100%;">
-                            <h4 style="margin-bottom:4px;">${ep.title}</h4>
-                            <p style="font-size:0.85rem; color:var(--gray-text); line-height:1.3;">${ep.desc}</p>
+                            <h4 style="margin-bottom:4px; font-size:0.95rem;">${ep.title}</h4>
+                            <p style="font-size:0.8rem; color:var(--gray-text); line-height:1.3;">${ep.desc}</p>
                             ${audioBtnsHTML}
                         </div>
                     </div>`;
@@ -724,10 +595,8 @@
             openModal('episodes-modal');
         }
 
-        /* --- PLAYER CONTROLS --- */
+        // --- PLAYER DE VÍDEO DO YOUTUBE ---
         const playerContainer = document.getElementById('player-container');
-        const ytWrapper = document.getElementById('yt-wrapper');
-        const nativeVideo = document.getElementById('native-video');
         const progress = document.getElementById('video-progress');
         const playBtn = document.getElementById('play-btn');
 
@@ -738,50 +607,31 @@
         }
 
         function startPlayer(url) {
-            playerContainer.style.display = 'block';
             const ytId = extractYouTubeID(url);
+            if(!ytId) return;
 
-            if (ytId) {
-                activeType = 'youtube';
-                nativeVideo.style.display = 'none';
-                nativeVideo.pause();
-                ytWrapper.style.display = 'block';
+            playerContainer.style.display = 'block';
 
-                if (!ytPlayer) {
-                    ytPlayer = new YT.Player('yt-player', {
-                        videoId: ytId,
-                        playerVars: { 'autoplay': 1, 'controls': 0, 'disablekb': 1, 'modestbranding': 1, 'rel': 0, 'cc_load_policy': 0 },
-                        events: {
-                            'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
-                            'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
-                        }
-                    });
-                } else {
-                    ytPlayer.loadVideoById(ytId);
-                    ytPlayer.playVideo();
-                    startProgressTracker();
-                }
+            if (!ytPlayer) {
+                ytPlayer = new YT.Player('yt-player', {
+                    videoId: ytId,
+                    playerVars: { 'autoplay': 1, 'controls': 0, 'disablekb': 1, 'modestbranding': 1, 'rel': 0 },
+                    events: {
+                        'onReady': (e) => { e.target.playVideo(); startProgressTracker(); },
+                        'onStateChange': (e) => { updatePlayIcon(e.data === YT.PlayerState.PLAYING); }
+                    }
+                });
             } else {
-                activeType = 'native';
-                ytWrapper.style.display = 'none';
-                if(ytPlayer) ytPlayer.stopVideo();
-
-                nativeVideo.style.display = 'block';
-                nativeVideo.src = url;
-                nativeVideo.play();
-                updatePlayIcon(true);
-
-                nativeVideo.ontimeupdate = () => {
-                    const pct = (nativeVideo.currentTime / nativeVideo.duration) * 100;
-                    progress.style.width = `${pct}%`;
-                };
+                ytPlayer.loadVideoById(ytId);
+                ytPlayer.playVideo();
+                startProgressTracker();
             }
         }
 
         function startProgressTracker() {
             clearInterval(progressInterval);
             progressInterval = setInterval(() => {
-                if (activeType === 'youtube' && ytPlayer && ytPlayer.getDuration) {
+                if (ytPlayer && ytPlayer.getDuration) {
                     const cur = ytPlayer.getCurrentTime();
                     const dur = ytPlayer.getDuration();
                     if (dur > 0) {
@@ -793,13 +643,10 @@
         }
 
         function togglePlay() {
-            if (activeType === 'youtube' && ytPlayer) {
+            if (ytPlayer) {
                 const state = ytPlayer.getPlayerState();
                 if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
                 else ytPlayer.playVideo();
-            } else if (activeType === 'native') {
-                if (nativeVideo.paused) { nativeVideo.play(); updatePlayIcon(true); }
-                else { nativeVideo.pause(); updatePlayIcon(false); }
             }
         }
 
@@ -812,26 +659,14 @@
         function seekVideo(e) {
             const rect = document.getElementById('video-timeline').getBoundingClientRect();
             const pct = (e.clientX - rect.left) / rect.width;
-
-            if (activeType === 'youtube' && ytPlayer) {
+            if (ytPlayer) {
                 const dur = ytPlayer.getDuration();
                 ytPlayer.seekTo(pct * dur, true);
-            } else if (activeType === 'native') {
-                nativeVideo.currentTime = pct * nativeVideo.duration;
             }
         }
 
-        function setVolume(val) {
-            if (activeType === 'youtube' && ytPlayer) ytPlayer.setVolume(val * 100);
-            else nativeVideo.volume = val;
-        }
-
-        function setBrightness(val) { document.getElementById('player-container').style.filter = `brightness(${val})`; }
-
         function setSpeed(val) {
-            const rate = parseFloat(val);
-            if (activeType === 'youtube' && ytPlayer) ytPlayer.setPlaybackRate(rate);
-            else nativeVideo.playbackRate = rate;
+            if (ytPlayer) ytPlayer.setPlaybackRate(parseFloat(val));
         }
 
         function toggleFullScreen() {
@@ -842,38 +677,51 @@
         function closePlayer() {
             clearInterval(progressInterval);
             if (ytPlayer) ytPlayer.stopVideo();
-            nativeVideo.pause();
-            nativeVideo.src = "";
             playerContainer.style.display = 'none';
         }
 
-        /* --- INTERFACE --- */
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function toggleTheme() { document.body.classList.toggle('light-mode', !document.getElementById('theme-toggle').checked); }
+        // --- GESTÃO DE PERFIS ---
         function selectProfile(name) {
+            activeProfile = name;
+            localStorage.setItem('gf_active_profile', name);
             document.getElementById('profile-screen').style.display = 'none';
             document.getElementById('user-display').innerText = `${name} (Sair)`;
         }
-        function exitProfile() { document.getElementById('profile-screen').style.display = 'flex'; }
-        
+
+        function exitProfile() {
+            document.getElementById('profile-screen').style.display = 'flex';
+        }
+
         function createNewProfile() {
             const name = prompt("Nome do perfil:");
-            if(name) {
+            if(name && name.trim() !== '') {
                 const box = document.getElementById('profiles-box');
                 box.innerHTML += `
-                    <div class="profile-card" onclick="selectProfile('${name}')">
+                    <div class="profile-card" onclick="selectProfile('${name.trim()}')">
                         <div class="profile-avatar">
                             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
                         </div>
-                        <div class="profile-name">${name}</div>
+                        <div class="profile-name">${name.trim()}</div>
                     </div>`;
             }
         }
 
+        function clearUserProgress() {
+            if(confirm("Deseja apagar o progresso salvo do perfil?")) {
+                localStorage.clear();
+                alert("Histórico de progresso resetado com sucesso!");
+                location.reload();
+            }
+        }
+
+        // --- INTERFACE & MODAIS ---
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function toggleTheme() { document.body.classList.toggle('light-mode', !document.getElementById('theme-toggle').checked); }
+
+        // Inicializador
+        selectProfile(activeProfile);
         fetchCatalog();
     </script>
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script type="module" src="app.js"></script>
 </body>
 </html>
